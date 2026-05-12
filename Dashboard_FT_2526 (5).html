@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dashboard FT 2526 — Campaña 25/26</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F2ED;--sf:#FAFAF8;--cd:#fff;--bd:rgba(0,0,0,.08);--tx:#1A1A18;--t2:#5A5A56;--t3:#9A9A94;--gn:#1A7A5A;--gl:#E8F5EE;--rd:#C0392B;--rdl:#FDECEA;--bl:#1A4A7A;--bll:#EAF0FA;--am:#8A5A10;--aml:#FEF5E4;--pu:#4A3A8A;--pul:#EEF0FC;--r:12px;--rs:8px;--sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:14px;line-height:1.5;}
+header{background:var(--cd);border-bottom:1px solid var(--bd);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:200;box-shadow:0 1px 8px rgba(0,0,0,.06);}
+.logo{font-size:15px;font-weight:600;}.logo span{color:var(--gn);}
+.hm{font-size:12px;color:var(--t3);border-left:1px solid var(--bd);padding-left:14px;}
+.upd{font-size:11px;font-family:'DM Mono',monospace;background:var(--gl);color:var(--gn);padding:4px 10px;border-radius:20px;font-weight:500;}
+.fbar{background:var(--cd);border-bottom:1px solid var(--bd);padding:10px 28px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;}
+.fg{display:flex;flex-direction:column;gap:3px;}
+.fl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);}
+select{padding:6px 10px;border-radius:7px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none;min-width:118px;}
+select:focus{border-color:var(--gn);}
+.fres{font-size:11px;font-family:'DM Mono',monospace;color:var(--t3);align-self:flex-end;padding-bottom:7px;margin-left:auto;}
+.rbtn{padding:6px 14px;border-radius:7px;border:1px solid var(--bd);background:transparent;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;color:var(--t2);align-self:flex-end;transition:all .15s;}
+.rbtn:hover{border-color:var(--gn);color:var(--gn);}
+.wrap{max-width:1380px;margin:0 auto;padding:22px 28px 48px;}
+.kg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:18px;}
+.kp{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);}
+.kl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;font-weight:500;margin-bottom:6px;}
+.kv{font-size:22px;font-weight:600;letter-spacing:-.5px;line-height:1;}
+.kv.gn{color:var(--gn);}.kv.rd{color:var(--rd);}.kv.bl{color:var(--bl);}.kv.am{color:var(--am);}
+.ks{font-size:11px;color:var(--t3);margin-top:5px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);}
+.ct{font-size:13px;font-weight:500;margin-bottom:12px;color:var(--tx);}
+.ct-sub{font-size:11px;color:var(--t3);font-weight:400;margin-left:6px;}
+.bg{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:500;}
+.bv{background:var(--gl);color:var(--gn);}.brd{background:var(--rdl);color:var(--rd);}.bb{background:var(--bll);color:var(--bl);}.bam{background:var(--aml);color:var(--am);}.bpu{background:var(--pul);color:var(--pu);}.bgr{background:#f0f0ee;color:var(--t2);}
+.stl{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 10px;}
+.tw{overflow-x:auto;max-height:420px;overflow-y:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead{position:sticky;top:0;z-index:2;}
+thead th{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.04em;padding:9px 11px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap;background:var(--sf);}
+tbody td{padding:9px 11px;border-bottom:1px solid var(--bd);white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--sf);}
+.tgn{color:var(--gn);font-weight:500;font-family:'DM Mono',monospace;font-size:12px;}
+.trd{color:var(--rd);font-weight:500;font-family:'DM Mono',monospace;font-size:12px;}
+.tbl{color:var(--bl);font-weight:500;font-family:'DM Mono',monospace;font-size:12px;}
+.tam{color:var(--am);font-weight:500;font-family:'DM Mono',monospace;font-size:12px;}
+.tm{font-family:'DM Mono',monospace;font-size:12px;color:var(--t2);}
+input[type=text]{padding:7px 12px;border-radius:7px;border:1px solid var(--bd);font-family:'DM Sans',sans-serif;font-size:12px;background:var(--cd);color:var(--tx);width:100%;margin-bottom:12px;outline:none;}
+input[type=text]:focus{border-color:var(--gn);}
+.smf-row{display:grid;grid-template-columns:100px 1fr 32px;gap:8px;align-items:center;padding:3px 0;}
+.smf-lbl{font-size:11px;color:var(--tx);}
+.smf-track{height:6px;background:#eee;border-radius:3px;overflow:hidden;}
+.smf-fill{height:6px;border-radius:3px;}
+.smf-val{font-size:11px;font-family:'DM Mono',monospace;color:var(--t3);text-align:right;}
+.smf-sec{margin-bottom:14px;}
+.smf-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:5px;}
+.lg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.li{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--t2);}
+.ld{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+@media(max-width:1100px){.kg{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:860px){.g2{grid-template-columns:1fr;}.kg{grid-template-columns:repeat(2,1fr);}.wrap{padding:14px;}.fbar{padding:10px 14px;}}
+
+.tabs{display:flex;border-bottom:1px solid var(--bd);background:var(--cd);padding:0 28px;position:sticky;top:60px;z-index:100;overflow-x:auto;}
+.tab-btn{padding:12px 20px;font-size:13px;color:var(--t3);border:none;background:transparent;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:'DM Sans',sans-serif;transition:color .15s;white-space:nowrap;}
+.tab-btn:hover{color:var(--t2);}.tab-btn.on{color:var(--tx);font-weight:500;border-bottom-color:var(--gn);}
+.tc{display:none;}.tc.on{display:block;}
+</style>
+
+  <style>
+    #loadingOverlay{position:fixed;inset:0;background:#f5f4f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;}
+    .spinner{width:44px;height:44px;border:4px solid #e0ddd8;border-top:4px solid #1A4A7A;border-radius:50%;animation:spin 0.8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .loading-txt{font-size:14px;color:#5A5A56;font-family:'DM Sans',sans-serif;}
+  </style>
+<script>
+// ===== DATA LOADER =====
+// Base URL: automatically detects if running from GitHub Pages or local
+var BASE_URL = (function(){
+  var loc = window.location.href;
+  if(loc.startsWith('file://')) return './';  // local file
+  // GitHub Pages: everything is served from same directory
+  return loc.substring(0, loc.lastIndexOf('/')+1);
+})();
+
+var _loaded = {data:false, siembra:false, geo:false};
+
+function _checkAllLoaded(){
+  if(!_loaded.data || !_loaded.siembra || !_loaded.geo) return;
+  // All data loaded - init the dashboard
+  document.getElementById('loadingOverlay').style.display='none';
+  if(typeof buildCropCards==='function') buildCropCards();
+  if(typeof updateIFSChart==='function') updateIFSChart();
+  if(typeof window.siembraUpdateAll==='function') window.siembraUpdateAll();
+  // Update badge
+  if(typeof CROP_REGISTRY!=='undefined'){
+    var allC=Object.values(CROP_REGISTRY);
+    var tHa=allC.reduce(function(a,c){return a+c.ha_sembradas;},0);
+    var tL=allC.reduce(function(a,c){return a+c.lotes;},0);
+    var b=document.getElementById('badgeHa');
+    if(b) b.textContent=tHa.toLocaleString('es-AR')+' ha · '+tL+' lotes';
+  }
+}
+
+function _fetchJSON(url, cb){
+  fetch(url+'?v='+Date.now())  // cache bust
+    .then(function(r){ return r.json(); })
+    .then(cb)
+    .catch(function(e){ console.error('Error loading '+url, e); });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  _fetchJSON(BASE_URL+'data.json', function(d){
+    window.__ALLDATA=d;
+    // Reload CLOTES, CDIARIO etc. since they reference ALLDATA
+    if(typeof CLOTES!=='undefined') Object.assign(window, {
+      CLOTES:d.lotes||[], CDIARIO:d.diario||[],
+      HUM_DIARIA:d.hum_diaria||[], HUM_JD_DIA:d.hum_jd_dia||[],
+      COMPARE:d.compare||[], MAQ_SUMMARY:d.maq_summary||[],
+      MAQ_RECORDS:d.maq_records||[], REND_JD_DIA:d.rend_jd_dia||[],
+      PERDIDAS:d.perdidas||{by_lote:[],indiv:[],controles:[]},
+      RESUMEN_DIA_ALL:d.resumen_dia||[], REND_CAMPO_DIA:d.rend_campo_dia||[]
+    });
+    // Update CROP_REGISTRY data
+    if(typeof CROP_REGISTRY!=='undefined'){
+      var s=d.lotes||[];
+      var cos=s.filter(function(l){return l.Ha_Cosechadas>0;});
+      CROP_REGISTRY.soja.ha_sembradas=Math.round(s.reduce(function(a,l){return a+(l.Ha_Sembradas||0);},0));
+      CROP_REGISTRY.soja.lotes=s.length;
+      CROP_REGISTRY.soja.ha_cosechadas=Math.round(cos.reduce(function(a,l){return a+(l.Ha_Cosechadas||0);},0));
+      CROP_REGISTRY.soja.cosechados=cos.length;
+      CROP_REGISTRY.soja.cos=d.lotes||[];
+      CROP_REGISTRY.soja.dia=d.diario||[];
+      if(d.maiz){
+        CROP_REGISTRY.maiz.cos=d.maiz.cosecha||[];
+        CROP_REGISTRY.maiz.sia=d.maiz.siembra||[];
+        CROP_REGISTRY.maiz.dia=d.maiz.diario||[];
+        var mc=d.maiz.cosecha||[]; var mcos=mc.filter(function(l){return l.Ha_Cosechadas>0;});
+        CROP_REGISTRY.maiz.ha_cosechadas=Math.round(mcos.reduce(function(a,l){return a+(l.Ha_Cosechadas||0);},0));
+        CROP_REGISTRY.maiz.cosechados=mcos.length;
+      }
+      if(d.algodon){
+        CROP_REGISTRY.algodon.cos=d.algodon.cosecha||[];
+        CROP_REGISTRY.algodon.sia=d.algodon.siembra||[];
+        CROP_REGISTRY.algodon.dia=d.algodon.diario||[];
+        var ac=d.algodon.cosecha||[]; var acos=ac.filter(function(l){return l.Ha_Cosechadas>0;});
+        CROP_REGISTRY.algodon.ha_cosechadas=Math.round(acos.reduce(function(a,l){return a+(l.Ha_Cosechadas||0);},0));
+        CROP_REGISTRY.algodon.cosechados=acos.length;
+      }
+    }
+    _loaded.data=true; _checkAllLoaded();
+  });
+
+  _fetchJSON(BASE_URL+'siembra.json', function(d){
+    window.__RAW=d;
+    if(typeof RAW!=='undefined') RAW.splice(0,RAW.length); // clear
+    // RAW is const so we update ACTIVE_SIE instead
+    window.ACTIVE_SIE=d;
+    _loaded.siembra=true; _checkAllLoaded();
+  });
+
+  _fetchJSON(BASE_URL+'planimetria.json', function(d){
+    window.__GEOJSON=d;
+    _loaded.geo=true; _checkAllLoaded();
+  });
+});
+</script>
+</head>
+<body>
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-txt">Cargando datos...</div>
+</div>
+<header>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="logo">FT <span id="dashTitle">Dashboard</span></div>
+    <div class="hm">LIAG Argentina S.A.U. · Campaña 25/26</div>
+  </div>
+  <span class="upd" id="badgeHa">24.363 ha · 243 lotes</span>
+</header>
+<div class="tabs"><button class="tab-btn on" id="btnCultivo" onclick="switchTab('cultivo',this)">🌾&nbsp;Cultivo</button><button class="tab-btn" onclick="switchTab('siembra',this)">🌱&nbsp;Siembra</button><button class="tab-btn" onclick="switchTab('cosecha',this)">🌾&nbsp;Cosecha</button><button class="tab-btn" onclick="switchTab('maquinistas',this)">🚜&nbsp;Contratistas</button></div>
+<div id="tab-cultivo" class="tc on">
+  <div class="wrap" style="max-width:700px;margin:0 auto;padding-top:20px;">
+    <div class="stl">Seleccioná los cultivos a visualizar</div>
+    <p style="font-size:13px;color:var(--t2);margin-bottom:20px;">
+      Los filtros de Siembra, Cosecha y Contratistas mostrarán solo los cultivos seleccionados.
+    </p>
+    <div id="cropCards" style="display:flex;flex-direction:column;gap:12px;"></div>
+    <div style="margin-top:24px;">
+      <button onclick="applyActiveCrops()" style="background:var(--bl);color:#fff;border:none;border-radius:8px;padding:12px 32px;font-size:14px;font-weight:600;cursor:pointer;">
+        Ver dashboard →
+      </button>
+      <button onclick="selectAllCrops()" style="background:none;border:1px solid var(--brd);border-radius:8px;padding:12px 20px;font-size:13px;cursor:pointer;margin-left:10px;color:var(--t2);">
+        Seleccionar todos
+      </button>
+    </div>
+  </div>
+</div>
+<div id="tab-siembra" class="tc">
+
+<div class="fbar">
+  <div class="fg"><div class="fl">Sección</div>
+    <select id="fSeccion"><option value="">Todas</option><option>A</option><option>B</option><option>G</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option><option>NN</option><option>O</option><option>P</option><option>Q</option><option>R</option></select>
+  </div>
+  <div class="fg"><div class="fl">Sistema Riego</div>
+    <select id="fSistema"><option value="">Todos</option><option>Aspersion</option><option>Gravedad</option><option>Secano</option></select>
+  </div>
+  <div class="fg"><div class="fl">Actividad</div>
+    <select id="fActividad"><option value="">Todas</option><option>Soja de Primera</option><option>Soja Secano</option><option>Soja Arrendamiento</option></select>
+  </div>
+  <div class="fg"><div class="fl">Estado</div>
+    <select id="fEstado"><option value="">Todos</option><option>Excelente</option><option>Muy bueno</option><option>Bueno</option><option>Regular</option><option>Malo</option></select>
+  </div>
+  <div class="fg"><div class="fl">Material</div>
+    <select id="fMaterial"><option value="">Todos</option></select>
+  </div>
+  <div class="fg"><div class="fl">KPI Fecha</div>
+    <select id="fKpiFS"><option value="">Todos</option><option>En fecha</option><option>Fuera de fecha</option></select>
+  </div>
+  <button class="rbtn" onclick="resetFilters()">↺ Limpiar</button>
+  <div class="fres" id="fres">133 lotes</div>
+</div>
+
+<div class="wrap">
+  <div class="kg">
+    <div class="kp"><div class="kl">Hectáreas Totales</div><div class="kv gn" id="kHa">15.174</div><div class="ks" id="kLotes">133 lotes</div></div>
+    <div class="kp"><div class="kl">Prod. Presupuestada</div><div class="kv bl" id="kPP">49.234 tn</div><div class="ks" id="kRPsub">—</div></div>
+    <div class="kp"><div class="kl">Prod. Esperada (Col. BE)</div><div class="kv am" id="kPE">52.311 tn</div><div class="ks" id="kREsub">—</div></div>
+    <div class="kp"><div class="kl">Var. vs Presupuesto</div><div class="kv gn" id="kVar">+6.2%</div><div class="ks">Producción esp. vs presup.</div></div>
+    <div class="kp"><div class="kl">Densidad Real Prom.</div><div class="kv" id="kDens">266</div><div class="ks">sem/m² promedio</div></div>
+    <div class="kp"><div class="kl">En Fecha Siembra</div><div class="kv gn" id="kEnFecha">—</div><div class="ks">KPI fecha de siembra</div></div>
+  </div>
+
+  <div class="g2">
+    <div class="cd">
+      <div class="ct">Estado de Lotes<span class="ct-sub">por cantidad de lotes</span></div>
+      <div class="lg" id="legEstado"></div>
+      <div style="position:relative;height:200px;"><canvas id="sEstado"></canvas></div>
+    </div>
+    <div class="cd">
+      <div class="ct">Sistema de Riego<span class="ct-sub">distribución de hectáreas</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;height:230px;align-items:center;">
+        <div style="position:relative;height:210px;"><canvas id="sSistema"></canvas></div>
+        <div id="legSistema" style="display:flex;flex-direction:column;gap:10px;font-size:12px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="cd">
+      <div class="ct">Rendimiento Esperado por Sección<span class="ct-sub">tn/ha promedio</span></div>
+      <div style="position:relative;height:240px;"><canvas id="cRendSec"></canvas></div>
+    </div>
+    <div class="cd">
+      <div class="ct">Producción por Material Genético<span class="ct-sub">top 10 · toneladas esperadas</span></div>
+      <div style="position:relative;height:240px;"><canvas id="sMaterial"></canvas></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="cd">
+      <div class="ct">KPIs de Siembra<span class="ct-sub">semáforo por indicador</span></div>
+      <div id="semaforoWrap"></div>
+    </div>
+    <div class="cd">
+      <div class="ct">Distribución por Mes de Siembra<span class="ct-sub">hectáreas sembradas</span></div>
+      <div style="position:relative;height:240px;"><canvas id="cMes"></canvas></div>
+    </div>
+  </div>
+
+  <div class="stl">Detalle por lote</div>
+  <div class="cd" style="padding:0;overflow:hidden;">
+    <div style="padding:14px 16px 0;"><input type="text" id="searchLote" placeholder="Buscar por lote, sección, material..." oninput="renderTabla()"></div>
+    <div class="tw">
+      <table>
+        <thead><tr>
+          <th>Lote</th><th>Secc.</th><th>Ha</th><th>Sistema</th><th>Material</th>
+          <th>Estado</th><th>Rend. Esp.</th><th>Prod. Esp. (tn)</th>
+          <th>Rend. Presup.</th><th>Densidad Real</th><th>KPI Fecha</th><th>KPI Densidad</th>
+        </tr></thead>
+        <tbody id="tablaBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const RAW=window.__RAW||[{"Seccion":"A","Lote":"A02","Ha_Presup":88,"Ha_Sembradas":88.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":244.64,"Rend_Est":2.6,"Prod_Est":228.8,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A03","Ha_Presup":33,"Ha_Sembradas":33.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":2.78,"Prod_Presup":91.74,"Rend_Est":2.6,"Prod_Est":85.8,"Densidad_Real":217.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A05","Ha_Presup":88,"Ha_Sembradas":88.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":244.64,"Rend_Est":2.6,"Prod_Est":228.8,"Densidad_Real":277.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A06","Ha_Presup":74,"Ha_Sembradas":74.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":205.72,"Rend_Est":2.6,"Prod_Est":192.4,"Densidad_Real":231.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A08","Ha_Presup":74,"Ha_Sembradas":74.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":205.72,"Rend_Est":2.6,"Prod_Est":192.4,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A09","Ha_Presup":55,"Ha_Sembradas":55.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":152.9,"Rend_Est":2.6,"Prod_Est":143.0,"Densidad_Real":255.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A11","Ha_Presup":87,"Ha_Sembradas":87.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":241.86,"Rend_Est":2.6,"Prod_Est":226.2,"Densidad_Real":280.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A12","Ha_Presup":48,"Ha_Sembradas":48.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":133.44,"Rend_Est":2.6,"Prod_Est":124.8,"Densidad_Real":278.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A13","Ha_Presup":74,"Ha_Sembradas":74.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":205.72,"Rend_Est":2.6,"Prod_Est":192.4,"Densidad_Real":228.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A14","Ha_Presup":50,"Ha_Sembradas":50.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":2.78,"Prod_Presup":139.0,"Rend_Est":2.6,"Prod_Est":130.0,"Densidad_Real":210.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A15","Ha_Presup":45,"Ha_Sembradas":45.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":125.1,"Rend_Est":2.6,"Prod_Est":117.0,"Densidad_Real":265.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A16","Ha_Presup":105,"Ha_Sembradas":105.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":2.78,"Prod_Presup":291.9,"Rend_Est":2.6,"Prod_Est":273.0,"Densidad_Real":230.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A17","Ha_Presup":43,"Ha_Sembradas":43.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":2.78,"Prod_Presup":119.54,"Rend_Est":2.6,"Prod_Est":111.8,"Densidad_Real":253.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"A","Lote":"A18","Ha_Presup":23,"Ha_Sembradas":23.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":63.94,"Rend_Est":2.6,"Prod_Est":59.8,"Densidad_Real":256.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"B","Lote":"B07","Ha_Presup":40,"Ha_Sembradas":40.0,"Sistema":"Gravedad","Material":"NEO70S25","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":111.2,"Rend_Est":2.0,"Prod_Est":80.0,"Densidad_Real":252.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B09c","Ha_Presup":39,"Ha_Sembradas":39.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":108.42,"Rend_Est":2.0,"Prod_Est":78.0,"Densidad_Real":285.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B09n","Ha_Presup":70,"Ha_Sembradas":70.0,"Sistema":"Gravedad","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":194.6,"Rend_Est":2.0,"Prod_Est":140.0,"Densidad_Real":230.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B09s","Ha_Presup":45,"Ha_Sembradas":45.0,"Sistema":"Gravedad","Material":"ACA","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":125.1,"Rend_Est":2.0,"Prod_Est":90.0,"Densidad_Real":316.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B11n","Ha_Presup":38,"Ha_Sembradas":38.0,"Sistema":"Gravedad","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":105.64,"Rend_Est":2.0,"Prod_Est":76.0,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B11s","Ha_Presup":34,"Ha_Sembradas":34.0,"Sistema":"Gravedad","Material":"ACA","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":94.52,"Rend_Est":2.0,"Prod_Est":68.0,"Densidad_Real":253.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B14","Ha_Presup":62,"Ha_Sembradas":62.0,"Sistema":"Gravedad","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":172.36,"Rend_Est":2.0,"Prod_Est":124.0,"Densidad_Real":null,"KPI_FS":"En fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B15","Ha_Presup":20,"Ha_Sembradas":20.0,"Sistema":"Gravedad","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":55.6,"Rend_Est":2.0,"Prod_Est":40.0,"Densidad_Real":281.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B17","Ha_Presup":89,"Ha_Sembradas":89.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":247.42,"Rend_Est":2.0,"Prod_Est":178.0,"Densidad_Real":244.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B19","Ha_Presup":53,"Ha_Sembradas":53.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":147.34,"Rend_Est":2.0,"Prod_Est":106.0,"Densidad_Real":273.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"B","Lote":"B22","Ha_Presup":79,"Ha_Sembradas":79.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":219.62,"Rend_Est":2.0,"Prod_Est":158.0,"Densidad_Real":282.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0},{"Seccion":"G","Lote":"G01","Ha_Presup":204,"Ha_Sembradas":204.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":567.12,"Rend_Est":2.8,"Prod_Est":571.2,"Densidad_Real":218.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G02","Ha_Presup":26,"Ha_Sembradas":26.0,"Sistema":"Gravedad","Material":"SAK257459","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":72.28,"Rend_Est":2.8,"Prod_Est":72.8,"Densidad_Real":326.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Alta","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G03","Ha_Presup":57,"Ha_Sembradas":57.0,"Sistema":"Gravedad","Material":"SAK257459","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":158.46,"Rend_Est":2.8,"Prod_Est":159.6,"Densidad_Real":279.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G04","Ha_Presup":192,"Ha_Sembradas":192.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":533.76,"Rend_Est":2.8,"Prod_Est":537.6,"Densidad_Real":212.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G05","Ha_Presup":29,"Ha_Sembradas":29.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":80.62,"Rend_Est":2.8,"Prod_Est":81.2,"Densidad_Real":232.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G06","Ha_Presup":233,"Ha_Sembradas":233.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":647.74,"Rend_Est":2.8,"Prod_Est":652.4,"Densidad_Real":251.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G07","Ha_Presup":53,"Ha_Sembradas":53.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":147.34,"Rend_Est":2.8,"Prod_Est":148.4,"Densidad_Real":285.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G08","Ha_Presup":55,"Ha_Sembradas":55.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":152.9,"Rend_Est":2.8,"Prod_Est":154.0,"Densidad_Real":226.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G09","Ha_Presup":175,"Ha_Sembradas":175.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":486.5,"Rend_Est":2.8,"Prod_Est":490.0,"Densidad_Real":229.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G10","Ha_Presup":48,"Ha_Sembradas":48.0,"Sistema":"Gravedad","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":133.44,"Rend_Est":2.8,"Prod_Est":134.4,"Densidad_Real":276.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"G","Lote":"G11","Ha_Presup":9,"Ha_Sembradas":9.0,"Sistema":"Gravedad","Material":"DM67i70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":2.78,"Prod_Presup":25.02,"Rend_Est":2.8,"Prod_Est":25.2,"Densidad_Real":223.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J01a","Ha_Presup":199,"Ha_Sembradas":199.0,"Sistema":"Aspersion","Material":"ACA","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":708.44,"Rend_Est":3.5,"Prod_Est":696.5,"Densidad_Real":281.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J01b","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":712.0,"Rend_Est":3.5,"Prod_Est":700.0,"Densidad_Real":266.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J01c","Ha_Presup":197,"Ha_Sembradas":197.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":701.32,"Rend_Est":3.5,"Prod_Est":689.5,"Densidad_Real":275.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J01d","Ha_Presup":41,"Ha_Sembradas":41.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":145.96,"Rend_Est":3.5,"Prod_Est":143.5,"Densidad_Real":275.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J01d","Ha_Presup":150,"Ha_Sembradas":150.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":534.0,"Rend_Est":3.5,"Prod_Est":525.0,"Densidad_Real":275.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J02a","Ha_Presup":197,"Ha_Sembradas":197.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":701.32,"Rend_Est":3.5,"Prod_Est":689.5,"Densidad_Real":265.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J02b","Ha_Presup":208,"Ha_Sembradas":208.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":740.48,"Rend_Est":3.5,"Prod_Est":728.0,"Densidad_Real":265.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J02c","Ha_Presup":196,"Ha_Sembradas":196.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":697.76,"Rend_Est":3.5,"Prod_Est":686.0,"Densidad_Real":275.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"J02d","Ha_Presup":208,"Ha_Sembradas":208.0,"Sistema":"Aspersion","Material":"DM70K70","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":740.48,"Rend_Est":3.5,"Prod_Est":728.0,"Densidad_Real":275.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"J","Lote":"Jsec","Ha_Presup":166,"Ha_Sembradas":166.0,"Sistema":"Secano","Material":"DM70K70","Actividad":"Soja Secano","Estado":"Regular","Rend_Presup":2.55,"Prod_Presup":423.3,"Rend_Est":3.5,"Prod_Est":581.0,"Densidad_Real":267.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"K","Lote":"Ka","Ha_Presup":132,"Ha_Sembradas":132.0,"Sistema":"Aspersion","Material":"DM80K80","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":469.92,"Rend_Est":2.5,"Prod_Est":330.0,"Densidad_Real":268.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"K","Lote":"Kb","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":712.0,"Rend_Est":2.5,"Prod_Est":500.0,"Densidad_Real":null,"KPI_FS":"En fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":12.0},{"Seccion":"K","Lote":"Kc","Ha_Presup":87,"Ha_Sembradas":87.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":309.72,"Rend_Est":2.5,"Prod_Est":217.5,"Densidad_Real":null,"KPI_FS":"En fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":12.0},{"Seccion":"L","Lote":"L01a","Ha_Presup":66,"Ha_Sembradas":66.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":234.96,"Rend_Est":2.5,"Prod_Est":165.0,"Densidad_Real":224.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L01b","Ha_Presup":96,"Ha_Sembradas":96.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":341.76,"Rend_Est":2.5,"Prod_Est":240.0,"Densidad_Real":263.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L01c","Ha_Presup":88,"Ha_Sembradas":88.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":313.28,"Rend_Est":2.5,"Prod_Est":220.0,"Densidad_Real":250.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L01d","Ha_Presup":74,"Ha_Sembradas":74.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":263.44,"Rend_Est":2.5,"Prod_Est":185.0,"Densidad_Real":390.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"L","Lote":"L01e","Ha_Presup":67,"Ha_Sembradas":67.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":238.52,"Rend_Est":2.5,"Prod_Est":167.5,"Densidad_Real":360.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"L","Lote":"L02a","Ha_Presup":129,"Ha_Sembradas":129.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":459.24,"Rend_Est":2.5,"Prod_Est":322.5,"Densidad_Real":311.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L02b","Ha_Presup":64,"Ha_Sembradas":64.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":227.84,"Rend_Est":2.5,"Prod_Est":160.0,"Densidad_Real":197.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L02c","Ha_Presup":62,"Ha_Sembradas":62.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":220.72,"Rend_Est":2.5,"Prod_Est":155.0,"Densidad_Real":378.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":11.0},{"Seccion":"L","Lote":"L02d","Ha_Presup":106,"Ha_Sembradas":106.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":377.36,"Rend_Est":2.5,"Prod_Est":265.0,"Densidad_Real":408.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"L","Lote":"L02e","Ha_Presup":93,"Ha_Sembradas":93.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":331.08,"Rend_Est":2.5,"Prod_Est":232.5,"Densidad_Real":418.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"L","Lote":"L03a","Ha_Presup":105,"Ha_Sembradas":105.0,"Sistema":"Aspersion","Material":"Breeding","Actividad":"Soja Arrendamiento","Estado":null,"Rend_Presup":3.56,"Prod_Presup":373.8,"Rend_Est":2.5,"Prod_Est":262.5,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"L","Lote":"L03b","Ha_Presup":89,"Ha_Sembradas":89.0,"Sistema":"Aspersion","Material":"Breeding","Actividad":"Soja Arrendamiento","Estado":null,"Rend_Presup":3.56,"Prod_Presup":316.84,"Rend_Est":2.5,"Prod_Est":222.5,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"L","Lote":"L03c","Ha_Presup":69,"Ha_Sembradas":69.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":245.64,"Rend_Est":2.5,"Prod_Est":172.5,"Densidad_Real":300.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"L","Lote":"L03d","Ha_Presup":84,"Ha_Sembradas":84.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":299.04,"Rend_Est":2.5,"Prod_Est":210.0,"Densidad_Real":300.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"L","Lote":"L03e","Ha_Presup":113,"Ha_Sembradas":113.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":402.28,"Rend_Est":2.5,"Prod_Est":282.5,"Densidad_Real":424.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":9.0},{"Seccion":"L","Lote":"Lsec","Ha_Presup":154,"Ha_Sembradas":154.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Regular","Rend_Presup":2.55,"Prod_Presup":392.7,"Rend_Est":2.5,"Prod_Est":385.0,"Densidad_Real":299.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"M","Lote":"M01c","Ha_Presup":175,"Ha_Sembradas":175.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":623.0,"Rend_Est":2.5,"Prod_Est":437.5,"Densidad_Real":360.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"M","Lote":"M01d","Ha_Presup":119,"Ha_Sembradas":119.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":423.64,"Rend_Est":2.5,"Prod_Est":297.5,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":10.0},{"Seccion":"M","Lote":"M02d","Ha_Presup":185,"Ha_Sembradas":185.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":658.6,"Rend_Est":2.5,"Prod_Est":462.5,"Densidad_Real":440.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":10.0},{"Seccion":"M","Lote":"M02e","Ha_Presup":93,"Ha_Sembradas":93.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":331.08,"Rend_Est":2.5,"Prod_Est":232.5,"Densidad_Real":350.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"M","Lote":"Msec","Ha_Presup":120,"Ha_Sembradas":120.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Bueno","Rend_Presup":2.55,"Prod_Presup":306.0,"Rend_Est":2.5,"Prod_Est":300.0,"Densidad_Real":257.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"N","Lote":"Na","Ha_Presup":168,"Ha_Sembradas":168.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":598.08,"Rend_Est":3.5,"Prod_Est":588.0,"Densidad_Real":380.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":11.0},{"Seccion":"N","Lote":"Nb","Ha_Presup":134,"Ha_Sembradas":134.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":477.04,"Rend_Est":3.5,"Prod_Est":469.0,"Densidad_Real":268.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":11.0},{"Seccion":"NN","Lote":"NNa","Ha_Presup":97,"Ha_Sembradas":97.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":345.32,"Rend_Est":3.5,"Prod_Est":339.5,"Densidad_Real":263.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":11.0},{"Seccion":"NN","Lote":"NNb","Ha_Presup":91,"Ha_Sembradas":91.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":323.96,"Rend_Est":3.5,"Prod_Est":318.5,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":11.0},{"Seccion":"NN","Lote":"NNsec","Ha_Presup":80,"Ha_Sembradas":80.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Muy bueno","Rend_Presup":2.55,"Prod_Presup":204.0,"Rend_Est":3.5,"Prod_Est":280.0,"Densidad_Real":328.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"N","Lote":"Nsec","Ha_Presup":46,"Ha_Sembradas":46.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Bueno","Rend_Presup":2.55,"Prod_Presup":117.3,"Rend_Est":3.5,"Prod_Est":161.0,"Densidad_Real":260.0,"KPI_FS":"En fecha","KPI_Densidad":"Sin dato","Mes_Siembra":12.0},{"Seccion":"O","Lote":"O11","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Aspersion","Material":"DM64R64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":712.0,"Rend_Est":2.8,"Prod_Est":560.0,"Densidad_Real":280.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"O","Lote":"O12","Ha_Presup":120,"Ha_Sembradas":120.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":427.2,"Rend_Est":2.8,"Prod_Est":336.0,"Densidad_Real":393.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"O","Lote":"O13","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Aspersion","Material":"NEO64S25","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":712.0,"Rend_Est":2.8,"Prod_Est":560.0,"Densidad_Real":284.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"O","Lote":"O14","Ha_Presup":225,"Ha_Sembradas":225.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":801.0,"Rend_Est":2.8,"Prod_Est":630.0,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"O","Lote":"O21","Ha_Presup":178,"Ha_Sembradas":178.0,"Sistema":"Aspersion","Material":"NEO70S25","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":633.68,"Rend_Est":2.8,"Prod_Est":498.4,"Densidad_Real":280.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"O","Lote":"O22","Ha_Presup":149,"Ha_Sembradas":149.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":530.44,"Rend_Est":2.8,"Prod_Est":417.2,"Densidad_Real":395.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"O","Lote":"O23","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Aspersion","Material":"DM67K67","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":712.0,"Rend_Est":2.8,"Prod_Est":560.0,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"O","Lote":"O24","Ha_Presup":237,"Ha_Sembradas":237.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Muy bueno","Rend_Presup":3.56,"Prod_Presup":843.72,"Rend_Est":2.8,"Prod_Est":663.6,"Densidad_Real":342.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"P","Lote":"P11","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"SAE257498","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":320.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P12","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":226.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P15","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"DM67K67","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":276.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P21","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"SAE257454","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":314.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P22","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":278.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P25","Ha_Presup":142,"Ha_Sembradas":142.0,"Sistema":"Aspersion","Material":"DM67K67","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":505.52,"Rend_Est":3.5,"Prod_Est":497.0,"Densidad_Real":281.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P26","Ha_Presup":84,"Ha_Sembradas":84.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":299.04,"Rend_Est":3.5,"Prod_Est":294.0,"Densidad_Real":367.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"P","Lote":"P31","Ha_Presup":122,"Ha_Sembradas":122.0,"Sistema":"Aspersion","Material":"SAK257459","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":434.32,"Rend_Est":3.5,"Prod_Est":427.0,"Densidad_Real":320.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P32","Ha_Presup":122,"Ha_Sembradas":122.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":434.32,"Rend_Est":3.5,"Prod_Est":427.0,"Densidad_Real":400.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"P","Lote":"P35","Ha_Presup":122,"Ha_Sembradas":122.0,"Sistema":"Aspersion","Material":"NEO63S22","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":434.32,"Rend_Est":3.5,"Prod_Est":427.0,"Densidad_Real":279.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P36","Ha_Presup":71,"Ha_Sembradas":71.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":252.76,"Rend_Est":3.5,"Prod_Est":248.5,"Densidad_Real":370.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"P","Lote":"P41","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"SAK257504","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":308.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P42","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":316.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Baja","Mes_Siembra":10.0},{"Seccion":"P","Lote":"P45","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"NEO64S25","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":252.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P46","Ha_Presup":112,"Ha_Sembradas":112.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":398.72,"Rend_Est":3.5,"Prod_Est":392.0,"Densidad_Real":390.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"P","Lote":"P51","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":252.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P52","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":395.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"P","Lote":"P55","Ha_Presup":143,"Ha_Sembradas":143.0,"Sistema":"Aspersion","Material":"SAE257467","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":509.08,"Rend_Est":3.5,"Prod_Est":500.5,"Densidad_Real":341.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"P","Lote":"P56","Ha_Presup":117,"Ha_Sembradas":117.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":416.52,"Rend_Est":3.5,"Prod_Est":409.5,"Densidad_Real":311.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q11","Ha_Presup":140,"Ha_Sembradas":140.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":498.4,"Rend_Est":3.5,"Prod_Est":490.0,"Densidad_Real":270.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q12","Ha_Presup":140,"Ha_Sembradas":140.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":498.4,"Rend_Est":3.5,"Prod_Est":490.0,"Densidad_Real":280.6,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q15","Ha_Presup":124,"Ha_Sembradas":124.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":441.44,"Rend_Est":3.5,"Prod_Est":434.0,"Densidad_Real":361.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q16","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":null,"KPI_FS":"En fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q21","Ha_Presup":140,"Ha_Sembradas":140.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":498.4,"Rend_Est":3.5,"Prod_Est":490.0,"Densidad_Real":250.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q22","Ha_Presup":140,"Ha_Sembradas":140.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":498.4,"Rend_Est":3.5,"Prod_Est":490.0,"Densidad_Real":282.3,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q25","Ha_Presup":90,"Ha_Sembradas":90.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":320.4,"Rend_Est":3.5,"Prod_Est":315.0,"Densidad_Real":342.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q26","Ha_Presup":118,"Ha_Sembradas":118.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":420.08,"Rend_Est":3.5,"Prod_Est":413.0,"Densidad_Real":352.5,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":9.0},{"Seccion":"Q","Lote":"Q31","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":250.0,"KPI_FS":"En fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q32","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":294.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q35","Ha_Presup":124,"Ha_Sembradas":124.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":441.44,"Rend_Est":3.5,"Prod_Est":434.0,"Densidad_Real":447.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q36","Ha_Presup":132,"Ha_Sembradas":132.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":469.92,"Rend_Est":3.5,"Prod_Est":462.0,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"Q","Lote":"Q41","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":260.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q42","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":510.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Alta","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q45","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":428.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q46","Ha_Presup":141,"Ha_Sembradas":141.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":501.96,"Rend_Est":3.5,"Prod_Est":493.5,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"Q","Lote":"Q51","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":265.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q52","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM64K64","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":300.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"Q","Lote":"Q55","Ha_Presup":125,"Ha_Sembradas":125.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":445.0,"Rend_Est":3.5,"Prod_Est":437.5,"Densidad_Real":399.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":10.0},{"Seccion":"Q","Lote":"Q56","Ha_Presup":111,"Ha_Sembradas":111.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Malo","Rend_Presup":3.56,"Prod_Presup":395.16,"Rend_Est":3.5,"Prod_Est":388.5,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"Q","Lote":"Qsec","Ha_Presup":200,"Ha_Sembradas":200.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Excelente","Rend_Presup":2.55,"Prod_Presup":510.0,"Rend_Est":3.5,"Prod_Est":700.0,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"Q","Lote":"Qsec sur","Ha_Presup":21,"Ha_Sembradas":21.0,"Sistema":"Secano","Material":"DM67i70","Actividad":"Soja Secano","Estado":"Excelente","Rend_Presup":2.55,"Prod_Presup":53.55,"Rend_Est":3.5,"Prod_Est":73.5,"Densidad_Real":null,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Sin Dato","Mes_Siembra":1.0},{"Seccion":"R","Lote":"R13","Ha_Presup":138,"Ha_Sembradas":138.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":491.28,"Rend_Est":2.2,"Prod_Est":303.6,"Densidad_Real":272.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Baja","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R14","Ha_Presup":126,"Ha_Sembradas":126.0,"Sistema":"Aspersion","Material":"DM46i20","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":448.56,"Rend_Est":2.2,"Prod_Est":277.2,"Densidad_Real":365.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R22","Ha_Presup":131,"Ha_Sembradas":131.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":466.36,"Rend_Est":2.2,"Prod_Est":288.2,"Densidad_Real":272.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R23","Ha_Presup":116,"Ha_Sembradas":116.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":412.96,"Rend_Est":2.2,"Prod_Est":255.2,"Densidad_Real":274.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R24","Ha_Presup":111,"Ha_Sembradas":111.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":395.16,"Rend_Est":2.2,"Prod_Est":244.2,"Densidad_Real":253.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R25","Ha_Presup":135,"Ha_Sembradas":135.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":480.6,"Rend_Est":2.2,"Prod_Est":297.0,"Densidad_Real":252.0,"KPI_FS":"En fecha","KPI_Densidad":"Optimo","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R34","Ha_Presup":112,"Ha_Sembradas":112.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Bueno","Rend_Presup":3.56,"Prod_Presup":398.72,"Rend_Est":2.2,"Prod_Est":246.4,"Densidad_Real":356.0,"KPI_FS":"En fecha","KPI_Densidad":"Alta","Mes_Siembra":12.0},{"Seccion":"R","Lote":"R35","Ha_Presup":105,"Ha_Sembradas":105.0,"Sistema":"Aspersion","Material":"DM75K75","Actividad":"Soja de Primera","Estado":"Regular","Rend_Presup":3.56,"Prod_Presup":373.8,"Rend_Est":2.2,"Prod_Est":231.0,"Densidad_Real":270.0,"KPI_FS":"Fuera de fecha","KPI_Densidad":"Optimo","Mes_Siembra":1.0}];
+
+const EC={gn:'#1A7A5A',rd:'#C0392B',bl:'#1A4A7A',am:'#8A5A10',pu:'#4A3A8A',t2:'#5A5A56',t3:'#9A9A94'};
+const ECOL={'Excelente':'#1A7A5A','Muy bueno':'#2980B9','Bueno':'#27AE60','Regular':'#E67E22','Malo':'#C0392B','S/D':'#9A9A94'};
+const SCOL={'Aspersion':'#1A4A7A','Gravedad':'#1A7A5A','Secano':'#8A5A10'};
+
+let charts={}; window.filtered=[...(window.ACTIVE_SIE||RAW)]; var filtered=window.filtered;
+
+const mats=[...new Set((window.ACTIVE_SIE||RAW).map(d=>d.Material).filter(Boolean))].sort();
+const fm=document.getElementById('fMaterial');
+mats.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;fm.appendChild(o);});
+
+const gv=id=>document.getElementById(id).value;
+const st=(id,v)=>{document.getElementById(id).textContent=v;};
+const f1=(n,d=1)=>n!=null?n.toFixed(d):'—';
+
+function getFiltered(){
+  const[s,si,a,e,m,k]=['fSeccion','fSistema','fActividad','fEstado','fMaterial','fKpiFS'].map(gv);
+  return (window.ACTIVE_SIE||RAW).filter(d=>(!s||d.Seccion===s)&&(!si||d.Sistema===si)&&(!a||d.Actividad===a)&&(!e||d.Estado===e)&&(!m||d.Material===m)&&(!k||d.KPI_FS===k));
+}
+
+function mkChart(id,type,data,opts={}){
+  if(charts[id])charts[id].destroy();
+  charts[id]=new Chart(document.getElementById(id),{type,data,options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},...(opts.plugins||{})},scales:opts.scales}});
+}
+
+function updateKPIs(d){
+  const ha=d.reduce((a,x)=>a+(x.Ha_Presup||0),0);
+  const pp=d.reduce((a,x)=>a+(x.Prod_Presup||0),0);
+  const pe=d.reduce((a,x)=>a+(x.Prod_Est||0),0);
+  const vp=pp>0?(pe-pp)/pp*100:0;
+  const dr=d.filter(x=>x.Densidad_Real&&x.Densidad_Real>0);
+  const da=dr.length?dr.reduce((a,x)=>a+x.Densidad_Real,0)/dr.length:0;
+  const ef=d.filter(x=>x.KPI_FS==='En fecha').length;
+  const re=ha>0?pe/ha:0,rp=ha>0?pp/ha:0;
+  st('kHa',ha.toLocaleString('es-AR'));st('kLotes',`${d.length} lotes`);
+  st('kPP',Math.round(pp).toLocaleString('es-AR')+' tn');st('kRPsub',`${f1(rp,2)} tn/ha prom.`);
+  st('kPE',Math.round(pe).toLocaleString('es-AR')+' tn');st('kREsub',`${f1(re,2)} tn/ha · según estado`);
+  const kv=document.getElementById('kVar');kv.textContent=(vp>=0?'+':'')+f1(vp)+'%';kv.className='kv '+(vp>=0?'gn':'rd');
+  st('kDens',Math.round(da).toLocaleString('es-AR'));
+  st('kEnFecha',`${ef} / ${d.length}`);
+  st('badgeHa',`${ha.toLocaleString('es-AR')} ha · ${d.length} lotes`);
+  st('fres',`${d.length} lotes`);
+}
+
+function chartGrid(scales){return {x:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},...(scales||{})}};}
+
+function updateEstado(d){
+  const c={};d.forEach(x=>{const k=x.Estado||'S/D';c[k]=(c[k]||0)+1;});
+  const lb=Object.keys(c),vl=lb.map(l=>c[l]),bg=lb.map(l=>ECOL[l]||'#9A9A94');
+  if(charts.est)charts.est.destroy();
+  charts.est=new Chart(document.getElementById('sEstado'),{type:'doughnut',data:{labels:lb,datasets:[{data:vl,backgroundColor:bg,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'right',labels:{color:EC.t2,font:{size:11,family:'DM Sans'},boxWidth:10,padding:8}}}}});
+  document.getElementById('legEstado').innerHTML=lb.map((l,i)=>`<div class="li"><div class="ld" style="background:${bg[i]};border-radius:50%;"></div>${l}: <strong>${vl[i]}</strong></div>`).join('');
+}
+
+function updateSistema(d){
+  const ha={};d.forEach(x=>{ha[x.Sistema]=(ha[x.Sistema]||0)+(x.Ha_Presup||0);});
+  const lb=Object.keys(ha),vl=lb.map(l=>ha[l]),bg=lb.map(l=>SCOL[l]||'#9A9A94');
+  const tot=vl.reduce((a,b)=>a+b,0);
+  if(charts.sis)charts.sis.destroy();
+  charts.sis=new Chart(document.getElementById('sSistema'),{type:'doughnut',data:{labels:lb,datasets:[{data:vl,backgroundColor:bg,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+  document.getElementById('legSistema').innerHTML=lb.map((l,i)=>`<div style="display:flex;align-items:center;gap:7px;"><div style="width:10px;height:10px;border-radius:2px;background:${bg[i]};flex-shrink:0;"></div><div><div style="font-size:12px;font-weight:500;color:#1A1A18;">${l}</div><div style="font-size:11px;color:#9A9A94;">${vl[i].toLocaleString('es-AR')} ha · ${(vl[i]/tot*100).toFixed(0)}%</div></div></div>`).join('');
+}
+
+function updateRendSec(d){
+  const m={};d.forEach(x=>{if(!m[x.Seccion])m[x.Seccion]={h:0,p:0};m[x.Seccion].h+=(x.Ha_Presup||0);m[x.Seccion].p+=(x.Prod_Est||0);});
+  const sc=Object.keys(m).sort(),rv=sc.map(s=>m[s].h>0?+(m[s].p/m[s].h).toFixed(2):0);
+  const mx=Math.max(...rv),bg=rv.map(r=>r>=mx*.9?EC.gn:r>=mx*.7?EC.bl:r>=mx*.5?EC.am:EC.rd);
+  if(charts.rs)charts.rs.destroy();
+  charts.rs=new Chart(document.getElementById('cRendSec'),{type:'bar',data:{labels:sc,datasets:[{data:rv,backgroundColor:bg,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y.toFixed(2)} tn/ha`}}},scales:{x:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},beginAtZero:false,min:Math.max(0,(Math.min(...rv.filter(r=>r>0))||0)-.3)}}}});
+}
+
+function updateMaterial(d){
+  const m={};d.forEach(x=>{m[x.Material]=(m[x.Material]||0)+(x.Prod_Est||0);});
+  const s=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const pal=['#1A7A5A','#1A4A7A','#8A5A10','#C0392B','#4A3A8A','#2980B9','#27AE60','#E67E22','#8E44AD','#16A085'];
+  if(charts.mat)charts.mat.destroy();
+  charts.mat=new Chart(document.getElementById('sMaterial'),{type:'bar',data:{labels:s.map(e=>e[0]),datasets:[{data:s.map(e=>Math.round(e[1])),backgroundColor:pal,borderRadius:5,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.x.toLocaleString('es-AR')} tn`}}},scales:{x:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{color:EC.t2,font:{size:11,family:'DM Mono'}},grid:{display:false}}}}});
+}
+
+function updateSmf(d){
+  const n=d.length||1;
+  const kpis=[
+    {t:'Fecha Siembra',bars:[{l:'En fecha',c:EC.gn,n:d.filter(x=>x.KPI_FS==='En fecha').length},{l:'Fuera de fecha',c:EC.rd,n:d.filter(x=>x.KPI_FS==='Fuera de fecha').length}]},
+    {t:'Densidad',bars:[{l:'Óptimo',c:EC.gn,n:d.filter(x=>x.KPI_Densidad==='Optimo').length},{l:'Baja',c:EC.am,n:d.filter(x=>x.KPI_Densidad==='Baja').length},{l:'Alta',c:EC.rd,n:d.filter(x=>x.KPI_Densidad==='Alta').length},{l:'Sin dato',c:EC.t3,n:d.filter(x=>x.KPI_Densidad==='Sin dato'||x.KPI_Densidad==='Sin Dato').length}]},
+  ];
+  document.getElementById('semaforoWrap').innerHTML=kpis.map(k=>`<div class="smf-sec"><div class="smf-title">${k.t}</div>${k.bars.map(b=>`<div class="smf-row"><div class="smf-lbl">${b.l}</div><div class="smf-track"><div class="smf-fill" style="width:${(b.n/n*100).toFixed(1)}%;background:${b.c};"></div></div><div class="smf-val">${b.n}</div></div>`).join('')}</div>`).join('');
+}
+
+function updateMes(d){
+  const mn={9:'Sep',10:'Oct',11:'Nov',12:'Dic',1:'Ene'};
+  const m={};d.forEach(x=>{if(x.Mes_Siembra){const k=mn[x.Mes_Siembra]||`M${x.Mes_Siembra}`;m[k]=(m[k]||0)+(x.Ha_Presup||0);}});
+  const ord=['Sep','Oct','Nov','Dic','Ene'],lb=ord.filter(x=>m[x]),vl=lb.map(x=>m[x]);
+  const pal=[EC.am,EC.pu,EC.gn,EC.bl,EC.rd];
+  if(charts.mes)charts.mes.destroy();
+  charts.mes=new Chart(document.getElementById('cMes'),{type:'bar',data:{labels:lb,datasets:[{data:vl,backgroundColor:lb.map((_,i)=>pal[i%pal.length]),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.y.toLocaleString('es-AR')} ha`}}},scales:{x:{ticks:{color:EC.t3,font:{size:11}},grid:{display:false}},y:{ticks:{color:EC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}}}}});
+}
+
+function bg_e(e){if(!e||e==='null')return'<span class="bg bgr">S/D</span>';const m={'Excelente':'bv','Muy bueno':'bb','Bueno':'bv','Regular':'bam','Malo':'brd'};return`<span class="bg ${m[e]||'bgr'}">${e}</span>`;}
+function bg_s(s){const m={'Aspersion':'bb','Gravedad':'bv','Secano':'bam'};return`<span class="bg ${m[s]||'bgr'}">${s}</span>`;}
+function bg_kf(k){return k==='En fecha'?`<span class="bg bv">${k}</span>`:`<span class="bg brd">${k||'—'}</span>`;}
+function bg_kd(k){if(!k||k==='Sin dato'||k==='Sin Dato')return`<span class="bg bgr">Sin dato</span>`;if(k==='Optimo')return`<span class="bg bv">Óptimo</span>`;if(k==='Baja')return`<span class="bg bam">Baja</span>`;if(k==='Alta')return`<span class="bg brd">Alta</span>`;return`<span class="bg bgr">${k}</span>`;}
+
+function renderTabla(){
+  const q=document.getElementById('searchLote').value.toLowerCase();
+  const vis=filtered.filter(d=>!q||(d.Lote||'').toLowerCase().includes(q)||(d.Seccion||'').toLowerCase().includes(q)||(d.Material||'').toLowerCase().includes(q)||(d.Sistema||'').toLowerCase().includes(q));
+  document.getElementById('tablaBody').innerHTML=vis.map(d=>{
+    const re=d.Rend_Est,rp=d.Rend_Presup;
+    const rc=!re||re===0?'tm':re>=4?'tgn':re>=3?'tbl':'trd';
+    return`<tr><td><strong>${d.Lote}</strong></td><td class="tm">${d.Seccion}</td><td class="tm">${d.Ha_Presup}</td><td>${bg_s(d.Sistema)}</td><td class="tm">${d.Material||'—'}</td><td>${bg_e(d.Estado)}</td><td class="${rc}">${re&&re>0?f1(re,2)+' tn/ha':'—'}</td><td class="tm">${d.Prod_Est&&d.Prod_Est>0?Math.round(d.Prod_Est).toLocaleString('es-AR'):'—'}</td><td class="tm" style="color:var(--t3)">${rp?f1(rp,2)+' tn/ha':'—'}</td><td class="tm">${d.Densidad_Real?Math.round(d.Densidad_Real):'—'}</td><td>${bg_kf(d.KPI_FS)}</td><td>${bg_kd(d.KPI_Densidad)}</td></tr>`;
+  }).join('');
+}
+
+function updateAll(){
+  filtered=getFiltered();
+  updateKPIs(filtered);updateEstado(filtered);updateSistema(filtered);
+  updateRendSec(filtered);updateMaterial(filtered);updateSmf(filtered);updateMes(filtered);
+  renderTabla();
+}
+window.siembraUpdateAll=updateAll;
+function resetFilters(){
+  ['fSeccion','fSistema','fActividad','fEstado','fMaterial','fKpiFS'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('searchLote').value='';updateAll();
+}
+['fSeccion','fSistema','fActividad','fEstado','fMaterial','fKpiFS'].forEach(id=>document.getElementById(id).addEventListener('change',updateAll));
+updateAll();
+</script>
+</div>
+<div id="tab-cosecha" class="tc">
+  <div class="fbar" id="cosecha-fbar">
+    <div class="fg"><div class="fl">Sección</div>
+      <select id="cSeccion" onchange="updateCosecha()"><option value="">Todas</option></select>
+    </div>
+    <div class="fg"><div class="fl">Sistema Riego</div>
+      <select id="cSistema" onchange="updateCosecha()"><option value="">Todos</option></select>
+    </div>
+    <div class="fg"><div class="fl">Material</div>
+      <select id="cMaterial" onchange="updateCosecha()"><option value="">Todos</option></select>
+    </div>
+    <div class="fg"><div class="fl">Contratista</div>
+      <select id="cContratista" onchange="updateCosecha()"><option value="">Todos</option></select>
+    </div>
+    <div class="fg"><div class="fl">Actividad</div>
+      <select id="cActividad" onchange="updateCosecha()"><option value="">Todas</option></select>
+    </div>
+    <div class="fg"><div class="fl">Estado lote</div>
+      <select id="cEstado" onchange="updateCosecha()"><option value="">Todos</option></select>
+    </div>
+    <div class="fg"><div class="fl">Antecesor</div>
+      <select id="cAntecesor" onchange="updateCosecha()"><option value="">Todos</option></select>
+    </div>
+    <button class="rbtn" onclick="resetCosechaFilters()">↺ Limpiar</button>
+    <div class="fres" id="cFres">cargando...</div>
+  </div>
+
+  <div class="wrap">
+    <div class="kg" style="grid-template-columns:repeat(5,minmax(0,1fr));">
+      <div class="kp"><div class="kl">Ha Cosechadas</div><div class="kv gn" id="ckHaCos">—</div><div class="ks" id="ckHaPct"></div></div>
+      <div class="kp"><div class="kl">Ha Pendientes</div><div class="kv rd" id="ckHaPend">—</div><div class="ks" id="ckLotesPend"></div></div>
+      <div class="kp"><div class="kl">Producción Real</div><div class="kv bl" id="ckProd">—</div><div class="ks" id="ckProdSub">—</div></div>
+      <div class="kp"><div class="kl">Rinde Real Prom.</div><div class="kv am" id="ckRend">—</div><div class="ks" id="ckRendSub">—</div></div>
+      <div class="kp"><div class="kl">Rinde vs Presup.</div><div class="kv" id="ckVsEst">—</div><div class="ks" id="ckVsEstSub">—</div></div>
+    </div>
+    <!-- MAPA DE LOTES -->
+    <div class="cd" style="padding:14px 18px 16px;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div class="ct" style="margin-bottom:0;">Mapa de lotes — estado de cosecha<span class="ct-sub">interactivo · click en lote para detalle</span></div>
+        <div id="mapLegend" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">
+            <input type="checkbox" id="mShowNoSembrado" checked onchange="renderMap()"> <span style="display:inline-block;width:12px;height:12px;background:#ccc;border:1.5px solid #999;border-radius:2px;"></span> Planimetría (176)
+          </label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">
+            <input type="checkbox" id="mShowSembrado" checked onchange="renderMap()"> <span style="display:inline-block;width:12px;height:12px;background:#E8E8E4;border:1.5px solid #aaa;border-radius:2px;"></span> Sembrado (91)
+          </label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">
+            <input type="checkbox" id="mShowAbierto" checked onchange="renderMap()"> <span style="display:inline-block;width:12px;height:12px;background:#F4C842;border:1.5px solid #c49a00;border-radius:2px;"></span> En cosecha (31)
+          </label>
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">
+            <input type="checkbox" id="mShowTerminado" checked onchange="renderMap()"> <span style="display:inline-block;width:12px;height:12px;background:#1A7A5A;border:1.5px solid #0f5a42;border-radius:2px;"></span> Terminado (10)
+          </label>
+          <button class="rbtn" onclick="resetMapFilters()">↺ Reset</button>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <canvas id="mapCanvas" width="900" height="460" style="width:100%;height:auto;border-radius:8px;background:#e8e4dc;display:block;cursor:crosshair;"></canvas>
+        <div id="mapTooltip" style="position:absolute;display:none;background:rgba(20,20,18,.88);color:#fff;font-size:11px;padding:7px 10px;border-radius:7px;pointer-events:none;max-width:200px;z-index:10;line-height:1.6;"></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="cd"><div class="ct">Avance de Cosecha<span class="ct-sub">ha cosechadas vs pendientes</span></div><div style="position:relative;height:220px;"><canvas id="ccAvance"></canvas></div></div>
+      <div class="cd"><div class="ct">Rinde Real por Sección<span class="ct-sub">tn/ha · lotes cosechados</span></div><div style="position:relative;height:220px;"><canvas id="ccRendSec"></canvas></div></div>
+    </div>
+    <div class="g2">
+      <div class="cd"><div class="ct">Ha por Contratista<span class="ct-sub">hectáreas cosechadas</span></div><div style="position:relative;height:220px;"><canvas id="ccContratista"></canvas></div></div>
+      <div class="cd"><div class="ct">Rinde Real por Material<span class="ct-sub">tn/ha · variedades cosechadas</span></div><div style="position:relative;height:220px;"><canvas id="ccMaterial"></canvas></div></div>
+    </div>
+    <div class="g2">
+      <div class="cd"><div class="ct">Ha Acumuladas por Día<span class="ct-sub">avance histórico de cosecha</span></div><div style="position:relative;height:220px;"><canvas id="ccDiario"></canvas></div></div>
+      <div class="cd"><div class="ct">Rinde por Sistema de Riego<span class="ct-sub">tn/ha promedio</span></div><div style="position:relative;height:220px;"><canvas id="ccSistema"></canvas></div></div>
+    </div>
+    <!-- IFS chart - uses SAME cosecha filters + its own sub-filters -->
+    <div class="stl">Rinde según fecha de siembra</div>
+    <div class="cd" style="margin-bottom:14px;">
+      <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px;">
+        <div class="fg"><div class="fl">Sistema Riego</div><select id="iSistema" onchange="updateCosecha()"><option value="">Todos</option><option>Aspersion</option><option>Gravedad</option><option>Secano</option></select></div>
+        <div class="fg"><div class="fl">Variedad</div><select id="iMaterial" onchange="updateCosecha()"><option value="">Todas</option></select></div>
+        <div class="fg"><div class="fl">Sección</div><select id="iSeccion" onchange="updateCosecha()"><option value="">Todas</option><option>A</option><option>B</option><option>G</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option><option>NN</option><option>O</option><option>P</option><option>Q</option><option>R</option></select></div>
+        <div style="font-size:11px;color:var(--t3);align-self:flex-end;padding-bottom:8px;">Los filtros de arriba también aplican aquí</div>
+      </div>
+      <div style="position:relative;height:260px;"><canvas id="ccIFS"></canvas></div>
+    </div>
+    <div class="stl">Detalle por lote</div>
+    <div class="cd" style="padding:0;overflow:hidden;">
+      <div style="padding:14px 16px 0;"><input type="text" id="cSearch" placeholder="Buscar lote, sección, material, contratista..." oninput="renderCosechaTabla()"></div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Lote</th><th>Secc.</th><th>Ha Semb.</th><th>Ha Cos.</th><th>Falta</th><th>Sistema</th><th>Material</th><th>Estado</th><th>Rind. Real</th><th>Prod. Real (tn)</th><th>Rind. Est. (BE)</th><th>Dif. vs Est.</th><th>IFC</th><th>FFC</th><th>Semana</th><th>Contratistas</th><th>Tarifa</th></tr></thead>
+          <tbody id="ctablaBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tab-maquinistas" class="tc">
+  <div id="maqCropBanner" style="display:none;background:#FFF3CD;border:1px solid #FFEAA7;border-radius:8px;padding:12px 18px;margin:16px 24px 0;font-size:13px;color:#8A5A10;">
+    ⚠️ La pestaña Contratistas muestra datos de cosechadora <strong>solo para Soja</strong>. Activá Soja en la pestaña Cultivo para ver esta información.
+  </div>
+  <div id="maqMaizContent" style="display:none;">
+  <div class="wrap">
+    <div id="maqMaizPerdKpi"></div>
+    <table class="dtable" style="width:100%;margin-bottom:24px;">
+      <thead><tr><th>Lote</th><th>Controles</th><th>Pérdida prom.</th><th>Rango</th><th>Monitoreador</th><th>Estado</th></tr></thead>
+      <tbody id="maqMaizPerdTable"></tbody>
+    </table>
+    <div class="stl">JD Maíz — rendimiento y humedad del día</div>
+    <canvas id="rmCompar" style="max-height:280px;"></canvas>
+    <div class="stl" style="margin-top:24px;">Resumen del día</div>
+    <div style="overflow-x:auto;">
+      <table class="dtable" style="min-width:900px;">
+        <thead><tr>
+          <th>Fecha</th><th>Máquina</th><th>Contratista</th><th>Lote</th><th>Ha</th>
+          <th>Hum JD</th><th>Hum Bal</th><th>Dif Hum</th>
+          <th>Rinde JD</th><th>Rinde Real</th><th>Dif %</th><th>Estado</th>
+        </tr></thead>
+        <tbody id="resumenDiaBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="maqSojaContent">
+<div class="wrap">
+    <!-- PERDIDAS KPI + GRAFICOS -->
+    <div class="stl">Pérdidas de cosecha — monitoreo en lote (tn/ha)</div>
+    <div class="kg" style="grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:14px;">
+      <div class="kp"><div class="kl">Pérdida Promedio</div><div class="kv" id="pkAvg">—</div><div class="ks" id="pkAvgSub">lotes monitoreados</div></div>
+      <div class="kp"><div class="kl">Lotes sobre umbral</div><div class="kv rd" id="pkAlto">—</div><div class="ks">&gt;1.50%</div></div>
+      <div class="kp"><div class="kl">Lotes en zona media</div><div class="kv am" id="pkMedio">—</div><div class="ks">1.00–1.50%</div></div>
+      <div class="kp"><div class="kl">Total controles</div><div class="kv bl" id="pkControles">—</div><div class="ks" id="pkControleSub">monitoreadores</div></div>
+    </div>
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="cd">
+        <div class="ct">Pérdida por lote<span class="ct-sub">% · promedio de mediciones · umbral 1.50%</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px;">
+          <div class="fg"><div class="fl">Contratista</div>
+            <select id="pFiltCt" onchange="updatePerdidas()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select>
+          </div>
+          <div class="fg"><div class="fl">Estado</div>
+            <select id="pFiltStatus" onchange="updatePerdidas()"><option value="">Todos</option><option value="ALTO">❌ Alto (&gt;0.70)</option><option value="MEDIO">⚠️ Medio (1.00–1.50)</option><option value="BAJO">✅ Bajo (&lt;0.40)</option></select>
+          </div>
+        </div>
+        <div style="position:relative;height:300px;"><canvas id="pcLote"></canvas></div>
+      </div>
+      <div class="cd">
+        <div class="ct">Pérdida por contratista<span class="ct-sub">% pérdida · promedio ponderado por mediciones</span></div>
+        <div style="position:relative;height:300px;"><canvas id="pcContratista"></canvas></div>
+      </div>
+    </div>
+    <!-- Tabla de controles por monitoreador -->
+    <div class="stl">Controles por monitoreador</div>
+    <div class="cd" style="padding:0;overflow:hidden;margin-bottom:20px;">
+      <div class="tw"><table><thead><tr>
+        <th>Responsable</th><th>N° Controles</th><th>Lotes monitoreados</th><th>Pérd. promedio</th><th>Actividad</th>
+      </tr></thead><tbody id="pTablaControles"></tbody></table></div>
+    </div>
+
+    <!-- ROW: Humedad día actual (izq) + Histórico balanza vs JD (der) -->
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="cd">
+        <div class="ct">Humedad — día de cosecha por lote<span class="ct-sub">JD cosechadora vs balanza campo</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg"><div class="fl">Fecha</div><select id="hFiltFecha" onchange="updateHumDia()"><option value="">Último día</option></select></div>
+          <div class="fg"><div class="fl">Contratista</div><select id="hFiltCtDia" onchange="updateHumDia()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select></div>
+        </div>
+        <div style="position:relative;height:280px;"><canvas id="hcDia"></canvas></div>
+      </div>
+      <div class="cd">
+        <div class="ct">Humedad histórica — JD vs balanza campo<span class="ct-sub">evolución diaria ponderada por kg · línea sólida=JD · punteada=balanza</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg"><div class="fl">Contratista</div><select id="hFiltMaq" onchange="updateHumDiaria()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select></div>
+          <div class="fg"><div class="fl">Desde</div><select id="hFiltDesde" onchange="updateHumDiaria()"><option value="">Inicio</option><option value="2026-02-01">Feb 2026</option><option value="2026-03-01">Mar 2026</option><option value="2026-04-01">Abr 2026</option></select></div>
+        </div>
+        <div style="position:relative;height:280px;"><canvas id="hcDiaria"></canvas></div>
+      </div>
+    </div>
+
+    <!-- RINDE HISTORICO + DIA -->
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="cd">
+        <div class="ct">Rinde — día de cosecha por lote<span class="ct-sub">JD cosechadora vs real de campo</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg"><div class="fl">Fecha</div><select id="hFiltFechaRend" onchange="updateRendDia()"><option value="">Último día</option></select></div>
+          <div class="fg"><div class="fl">Contratista</div><select id="hFiltCtRend" onchange="updateRendDia()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select></div>
+        </div>
+        <div style="position:relative;height:280px;"><canvas id="hcRendDia"></canvas></div>
+      </div>
+      <div class="cd">
+        <div class="ct">Rinde histórico — JD vs real de campo<span class="ct-sub">evolución diaria · línea sólida=JD · punteada=campo</span></div>
+        <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;">
+          <div class="fg"><div class="fl">Contratista</div><select id="hFiltMaqRend" onchange="updateRendDiaria()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select></div>
+          <div class="fg"><div class="fl">Desde</div><select id="hFiltDesdeRend" onchange="updateRendDiaria()"><option value="">Inicio</option><option value="2026-02-01">Feb 2026</option><option value="2026-03-01">Mar 2026</option><option value="2026-04-01">Abr 2026</option></select></div>
+        </div>
+        <div style="position:relative;height:280px;"><canvas id="hcRendDiaria"></canvas></div>
+      </div>
+    </div>
+
+    <!-- HUMEDAD JD vs CAMPO ranking -->
+    <div class="stl">Humedad — JD cosechadora vs balanza campo (lotes comunes)</div>
+    <div class="g2">
+      <div class="cd"><div class="ct">Diferencia Ponderada por Máquina<span class="ct-sub">JD − balanza campo (lotes comunes)</span></div><div style="position:relative;height:280px;"><canvas id="hcRanking"></canvas></div></div>
+      <div class="cd"><div class="ct">Diferencia por Lote y Contratista<span class="ct-sub">humedad JD vs balanza, por lote</span></div><div style="position:relative;height:280px;"><canvas id="hcLoteCt"></canvas></div></div>
+    </div>
+    <div class="stl">Resumen del día — calibración por maquinista y lote</div>
+    <div class="cd" style="padding:0;overflow:hidden;margin-bottom:20px;">
+      <div style="padding:12px 16px 0;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+        <div class="fg"><div class="fl">Fecha</div><select id="hFiltFechaResumen" onchange="updateResumenDia()"><option value="">Último día</option></select></div>
+        <div class="fg"><div class="fl">Contratista</div><select id="hFiltCtResumen" onchange="updateResumenDia()"><option value="">Todos</option><option>Travassi</option><option>Emiliani</option><option>Hunkalo</option><option>Lodi</option></select></div>
+        <div class="fg"><div class="fl">Estado</div><select id="hFiltStatusResumen" onchange="updateResumenDia()"><option value="">Todos</option><option value="CORREGIR">❌ Corregir</option><option value="CERCA">⚠️ Cerca</option><option value="BIEN">✅ Bien</option></select></div>
+        <div style="font-size:11px;color:var(--t3);align-self:flex-end;padding-bottom:8px;">Solo el día seleccionado · histórico ya fue corregido</div>
+      </div>
+      <div class="tw" style="margin-top:10px;"><table><thead><tr>
+        <th>Maquinista</th><th>Contratista</th><th>Lote</th><th>Ha</th>
+        <th>Hum. JD</th><th>Hum. Balanza</th><th>Dif. Hum.</th>
+        <th>Rinde JD</th><th>Rinde Real</th><th>Dif. Rinde</th>
+        <th>Estado</th>
+      </tr></thead><tbody id="hResumenBody"></tbody></table></div>
+    </div>
+    <!-- Keep hidden tables for ranking charts (needed by buildHumTables) -->
+    <div style="display:none;"><table><tbody id="hTablaBody"></tbody></table></div>
+    <div style="display:none;"><table><tbody id="hDetBody"></tbody></table></div>
+
+    <!-- RINDE -->
+    <div class="stl">Rinde — JD cosechadora vs real de campo</div>
+    <div style="background:var(--bll);border:1px solid rgba(26,74,122,.2);border-radius:var(--r);padding:14px 18px;margin-bottom:14px;font-size:13px;color:var(--bl);">
+      <stro
+</div><!-- /maqSojaContent -->
+ng>📋 Metodología:</strong> Rendimiento en seco JD (tn/ha) vs Rinde Real (Prod.Real/Ha.Cosechadas). Positivo = JD sobrestima; negativo = JD subestima. Solo lotes con datos en ambas fuentes.
+    </div>
+    <div class="g2">
+      <div class="cd"><div class="ct">Ranking — Diferencia Rinde Ponderada<span class="ct-sub">JD seco (tn/ha) − real campo · pond. por ha</span></div><div style="position:relative;height:300px;"><canvas id="hcRendRanking"></canvas></div></div>
+      <div class="cd"><div class="ct">Rinde JD vs Real — por maquinista<span class="ct-sub">comparación directa de valores medios</span></div><div style="position:relative;height:300px;"><canvas id="hcRendCompar"></canvas></div></div>
+    </div>
+
+  </div>
+</div>
+<script>
+// ===== TAB SWITCHING =====
+function switchTab(tab,btn){
+  document.querySelectorAll('.tc').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tab-'+tab).classList.add('on');
+  btn.classList.add('on');
+  if(tab==='cultivo'){buildCropCards();}
+  if(tab==='siembra'){
+    window.ACTIVE_SIE=window.ACTIVE_SIE||null;
+    if(window.siembraUpdateAll) window.siembraUpdateAll();
+  }
+  if(tab==='cosecha'){updateCosecha();setTimeout(function(){initMapSetup();renderMap();},200);}
+  if(tab==='maquinistas'){
+    var act=getActiveCrops();
+    var hasSojaT=act.some(function(c){return c.id==='soja';});
+    var hasMaizT=act.some(function(c){return c.id==='maiz';});
+    var hasAldT=act.some(function(c){return c.id==='algodon';});
+    var noSoja=act.length>0&&!hasSojaT&&!(hasMaizT||hasAldT);
+    var banner=document.getElementById('maqCropBanner');
+    if(banner) banner.style.display=noSoja?'block':'none';
+    initMaquinistas();
+  }
+}
+
+// ===== DATA =====
+const ALLDATA=window.__ALLDATA||{};
+const CLOTES=ALLDATA.lotes;
+const CDIARIO=ALLDATA.diario;
+const HUM_DIARIA=ALLDATA.hum_diaria||[];
+const HUM_JD_DIA=ALLDATA.hum_jd_dia||[];
+const COMPARE=ALLDATA.compare||[];
+const MAQ_SUMMARY=ALLDATA.maq_summary||[];
+const MAQ_RECORDS=ALLDATA.maq_records||[];
+const REND_JD_DIA=ALLDATA.rend_jd_dia||[];
+const PERDIDAS=ALLDATA.perdidas||{by_lote:[],indiv:[],controles:[]};
+const RESUMEN_DIA_ALL=ALLDATA.resumen_dia||[];
+const REND_CAMPO_DIA=ALLDATA.rend_campo_dia||[];
+
+const CC={gn:'#1A7A5A',rd:'#C0392B',bl:'#1A4A7A',am:'#8A5A10',t2:'#5A5A56',t3:'#9A9A94'};
+const CT_COLORS={Travassi:'#1A4A7A',Emiliani:'#1A7A5A',Hunkalo:'#8A5A10',Lodi:'#4A3A8A'};
+const CT_LIGHT={Travassi:'rgba(26,74,122,.18)',Emiliani:'rgba(26,122,90,.18)',Hunkalo:'rgba(138,90,16,.18)',Lodi:'rgba(74,58,138,.18)'};
+let ccharts={},hcharts={},ifsChart=null;
+
+function cvg(id){var e=document.getElementById(id);return e?e.value:'';}
+function sf(n,d){d=d==null?2:d;return n!=null&&!isNaN(n)?parseFloat(n).toFixed(d):'—';}
+function stN(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+function rdClr(p){var a=Math.abs(p);return a<=5?CC.gn:a<=15?CC.am:CC.rd;}
+function rdLbl(p){var a=Math.abs(p);return a<=5?'✅ Preciso':a<=15?'⚠️ Tolerable':'❌ Revisar';}
+function humClr(v){var a=Math.abs(v);return a<=0.3?CC.gn:a<=1?CC.am:CC.rd;}
+function mkCC(id,tp,data,opts){
+  if(!opts)opts={};if(ccharts[id])ccharts[id].destroy();
+  var el=document.getElementById(id);if(!el)return;
+  var options=Object.assign({responsive:true,maintainAspectRatio:false},opts);
+  options.plugins=Object.assign({legend:{display:false}},opts.plugins||{});
+  ccharts[id]=new Chart(el,{type:tp,data:data,options:options});
+}
+
+// ===== POPULATE FILTERS =====
+(function(){
+  var mats=[...new Set((window.ACTIVE_COS||CLOTES).map(d=>d.Material).filter(Boolean))].sort();
+  ['cMaterial','iMaterial'].forEach(sid=>{
+    var s=document.getElementById(sid);if(!s)return;
+    mats.forEach(m=>{var o=document.createElement('option');o.value=m;o.textContent=m;s.appendChild(o);});
+  });
+  var fechas=[...new Set(MAQ_RECORDS.filter(r=>r.Fecha_JD&&r.En_Campo).map(r=>r.Fecha_JD))].sort().reverse();
+  var fs=document.getElementById('hFiltFecha');
+  if(fs)fechas.forEach(f=>{var o=document.createElement('option');o.value=f;o.textContent=f.slice(5);fs.appendChild(o);});
+  var fs2=document.getElementById('hFiltFechaRend');
+  if(fs2)fechas.forEach(f=>{var o=document.createElement('option');o.value=f;o.textContent=f.slice(5);fs2.appendChild(o);});
+  var fs3=document.getElementById('hFiltFechaResumen');
+  if(fs3){var rdates=[...new Set(RESUMEN_DIA_ALL.map(r=>r.Fecha))].sort().reverse();rdates.forEach(f=>{var o=document.createElement('option');o.value=f;o.textContent=f;fs3.appendChild(o);});}
+})();
+
+// ===== COSECHA FILTERS — all charts use getCFiltered() =====
+function getCFiltered(){
+  var sec=cvg('cSeccion'),sis=cvg('cSistema'),mat=cvg('cMaterial'),ct=cvg('cContratista'),
+      act=cvg('cActividad'),est=cvg('cEstado'),ant=cvg('cAntecesor');
+  return (window.ACTIVE_COS||CLOTES).filter(d=>
+    (!sec||d.Seccion===sec)&&(!sis||d.Sistema===sis)&&(!mat||d.Material===mat)&&
+    (!act||d.Actividad===act)&&(!est||d.Estado===est)&&
+    (!ant||(d.Antecesor1&&d.Antecesor1.includes(ant))||(d.Antecesor2&&d.Antecesor2.includes(ant)))&&
+    (!ct||(ct==='Travassi'&&d.Ha_Travassi>0)||(ct==='Emiliani'&&d.Ha_Emiliani>0)||(ct==='Hunkalo'&&d.Ha_Hunkalo>0)||(ct==='Lodi'&&d.Ha_Lodi>0))
+  );
+}
+
+function updateCKPIs(all,cos){
+  var haS=all.reduce((a,d)=>a+(d.Ha_Sembradas||0),0);
+  var haC=cos.reduce((a,d)=>a+(d.Ha_Cosechadas||0),0);
+  var haP=all.reduce((a,d)=>a+(d.Falta_Cosechar>0?d.Falta_Cosechar:0),0);
+  var prod=cos.reduce((a,d)=>a+(d.Prod_Real||0),0);
+  var rr=haC>0?prod/haC:0;
+  var pctCos=haS>0?(haC/haS*100):0;
+  var pctPend=haS>0?(haP/haS*100):0;
+  // Presupuesto: Rend_Presup * Ha_Sembradas per lote
+  var presupTotal=all.reduce((a,d)=>a+(d.Prod_Presup||0),0);
+  var rendPresup=haS>0?(presupTotal/haS):0;  // weighted avg budget rend
+  var pctVsPresup=presupTotal>0?(prod/presupTotal*100):0;
+  var difVsPresup=presupTotal>0?((prod-presupTotal)/presupTotal*100):0;
+  // Rinde vs estimado (BE col)
+  // Update KPI cards
+  stN('ckHaCos',haC.toLocaleString('es-AR'));
+  stN('ckHaPct',pctCos.toFixed(0)+'% cosechado · '+cos.length+' lotes');
+  stN('ckHaPend',haP.toLocaleString('es-AR'));
+  stN('ckLotesPend',pctPend.toFixed(0)+'% pendiente · '+all.filter(d=>d.Falta_Cosechar>0).length+' lotes');
+  stN('ckProd',Math.round(prod).toLocaleString('es-AR')+' tn');
+  var prodEl=document.getElementById('ckProdSub');
+  if(prodEl){prodEl.textContent=pctVsPresup.toFixed(0)+'% de '+Math.round(presupTotal).toLocaleString('es-AR')+' tn presup.';}
+  stN('ckRend',sf(rr,1)+' tn/ha');
+  stN('ckRendSub','Presup: '+sf(rendPresup,1)+' tn/ha');
+  // Rinde real vs presupuestado
+  var ve=document.getElementById('ckVsEst');
+  var difRndPresup=rendPresup>0?((rr-rendPresup)/rendPresup*100):0;
+  if(ve){if(rendPresup>0){ve.textContent=(difRndPresup>=0?'+':'')+sf(difRndPresup,1)+'%';ve.className='kv '+(difRndPresup>=0?'gn':'rd');}else{ve.textContent='—';ve.className='kv';}}
+  stN('ckVsEstSub','Presup: '+sf(rendPresup,1)+' tn/ha');
+  stN('cFres',cos.length+' cosechados / '+all.length+' total');
+}
+
+function updateCAvance(all){
+  var hC=all.reduce((a,d)=>a+(d.Ha_Cosechadas||0),0);
+  var hP=all.reduce((a,d)=>a+(d.Falta_Cosechar>0?d.Falta_Cosechar:0),0);
+  if(ccharts.avance)ccharts.avance.destroy();
+  var el=document.getElementById('ccAvance');if(!el)return;
+  ccharts.avance=new Chart(el,{type:'doughnut',
+    data:{labels:['Cosechado ('+hC.toLocaleString('es-AR')+' ha)','Pendiente ('+hP.toLocaleString('es-AR')+' ha)'],
+    datasets:[{data:[hC,hP],backgroundColor:['#1A7A5A','#FDECEA'],borderColor:['#1A7A5A','#C0392B'],borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'right',labels:{color:CC.t2,font:{size:11},boxWidth:10,padding:8}}}}});
+}
+
+function updateCRendSec(cos){
+  var m={};cos.forEach(d=>{if(!m[d.Seccion])m[d.Seccion]={ha:0,prod:0};m[d.Seccion].ha+=d.Ha_Cosechadas||0;m[d.Seccion].prod+=d.Prod_Real||0;});
+  var s=Object.keys(m).sort(),rv=s.map(k=>m[k].ha>0?+(m[k].prod/m[k].ha).toFixed(2):0);
+  var mx=Math.max(...rv.filter(v=>v>0),1);
+  mkCC('ccRendSec','bar',{labels:s,datasets:[{data:rv,backgroundColor:rv.map(r=>r>=mx*.9?CC.gn:r>=mx*.7?CC.bl:r>=mx*.5?CC.am:CC.rd),borderRadius:5,borderSkipped:false}]},{
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toFixed(2)+' tn/ha'}}},
+    scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}}}});
+}
+
+function updateCContratista(cos){
+  var ct={Travassi:0,Emiliani:0,Hunkalo:0,Lodi:0};
+  cos.forEach(d=>{ct.Travassi+=d.Ha_Travassi||0;ct.Emiliani+=d.Ha_Emiliani||0;ct.Hunkalo+=d.Ha_Hunkalo||0;ct.Lodi+=d.Ha_Lodi||0;});
+  var en=Object.entries(ct).filter(e=>e[1]>0);
+  mkCC('ccContratista','bar',{labels:en.map(e=>e[0]),datasets:[{data:en.map(e=>e[1]),backgroundColor:en.map(e=>CT_COLORS[e[0]]||CC.t3),borderRadius:5,borderSkipped:false}]},{
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString('es-AR')+' ha'}}},
+    scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{display:false}},y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}}}});
+}
+
+function updateCMaterial(cos){
+  var m={};cos.forEach(d=>{if(d.Ha_Cosechadas>0){if(!m[d.Material])m[d.Material]={ha:0,prod:0};m[d.Material].ha+=d.Ha_Cosechadas;m[d.Material].prod+=d.Prod_Real||0;}});
+  var so=Object.entries(m).filter(e=>e[1].ha>0).map(e=>[e[0],e[1].prod/e[1].ha]).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  var pal=['#1A7A5A','#1A4A7A','#8A5A10','#C0392B','#4A3A8A','#2980B9','#27AE60','#E67E22','#8E44AD','#16A085','#D35400','#2C3E50'];
+  mkCC('ccMaterial','bar',{labels:so.map(e=>e[0]),datasets:[{data:so.map(e=>+e[1].toFixed(2)),backgroundColor:pal,borderRadius:5,borderSkipped:false}]},{
+    indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x.toFixed(2)+' tn/ha'}}},
+    scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}},y:{ticks:{color:CC.t2,font:{size:11,family:'DM Mono'}},grid:{display:false}}}});
+}
+
+function updateCDiario(){
+  var ac=CDIARIO.filter(d=>d.Ha_Acum>0&&d.Fecha>'1970').sort((a,b)=>a.Fecha.localeCompare(b.Fecha));
+  if(!ac.length)return;if(ccharts.diario)ccharts.diario.destroy();
+  var el=document.getElementById('ccDiario');if(!el)return;
+  ccharts.diario=new Chart(el,{type:'line',
+    data:{labels:ac.map(d=>d.Fecha.slice(5)),datasets:[{data:ac.map(d=>d.Ha_Acum),borderColor:'#1A7A5A',backgroundColor:'rgba(26,122,90,.08)',fill:true,tension:.3,pointRadius:2,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString('es-AR')+' ha acum.'}}},
+    scales:{x:{ticks:{color:CC.t3,font:{size:10},maxRotation:45,maxTicksLimit:15},grid:{display:false}},y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}}}}});
+}
+
+function updateCSistema(cos){
+  var m={};cos.forEach(d=>{if(d.Ha_Cosechadas>0){if(!m[d.Sistema])m[d.Sistema]={ha:0,prod:0};m[d.Sistema].ha+=d.Ha_Cosechadas;m[d.Sistema].prod+=d.Prod_Real||0;}});
+  var pal={Aspersion:'#1A4A7A',Gravedad:'#1A7A5A',Secano:'#8A5A10'};
+  var en=Object.entries(m).filter(e=>e[1].ha>0);
+  mkCC('ccSistema','bar',{labels:en.map(e=>e[0]),datasets:[{data:en.map(e=>+(e[1].prod/e[1].ha).toFixed(2)),backgroundColor:en.map(e=>pal[e[0]]||CC.t3),borderRadius:8,borderSkipped:false}]},{
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y.toFixed(2)+' tn/ha'}}},
+    scales:{x:{ticks:{color:CC.t3,font:{size:13}},grid:{display:false}},y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'}}}});
+}
+
+// IFS chart uses getCFiltered() + its own sub-filters (iSistema/iMaterial/iSeccion)
+function updateIFSChart(all){
+  if(!all)all=getCFiltered();
+  var sis=cvg('iSistema'),mat=cvg('iMaterial'),sec=cvg('iSeccion');
+  var cos=all.filter(d=>d.Ha_Cosechadas>0&&d.Rend_Real>0&&d.IFS_siembra);
+  if(sis)cos=cos.filter(d=>d.Sistema===sis);
+  if(mat)cos=cos.filter(d=>d.Material===mat);
+  if(sec)cos=cos.filter(d=>d.Seccion===sec);
+  if(!cos.length){if(ifsChart){ifsChart.destroy();ifsChart=null;}return;}
+  var bd={};
+  cos.forEach(d=>{var k=d.IFS_siembra.slice(0,7);if(!bd[k])bd[k]={ha:0,prod:0,n:0};bd[k].ha+=d.Ha_Cosechadas;bd[k].prod+=d.Prod_Real;bd[k].n++;});
+  var mn={'2025-09':'Sep 25','2025-10':'Oct 25','2025-11':'Nov 25','2025-12':'Dic 25','2026-01':'Ene 26'};
+  var keys=Object.keys(bd).sort(),rv=keys.map(k=>bd[k].ha>0?+(bd[k].prod/bd[k].ha).toFixed(2):0);
+  var mx=Math.max(...rv.filter(v=>v>0),1);
+  if(ifsChart)ifsChart.destroy();
+  var el=document.getElementById('ccIFS');if(!el)return;
+  ifsChart=new Chart(el,{type:'bar',
+    data:{labels:keys.map(k=>mn[k]||k),datasets:[{data:rv,backgroundColor:rv.map(r=>r>=mx*.9?CC.gn:r>=mx*.7?CC.bl:r>=mx*.5?CC.am:CC.rd),borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        title:it=>(mn[keys[it[0].dataIndex]]||keys[it[0].dataIndex])+' ('+bd[keys[it[0].dataIndex]].n+' lotes)',
+        label:c=>c.parsed.y.toFixed(2)+' tn/ha',
+        afterLabel:c=>{var k=keys[c.dataIndex];return 'Ha: '+bd[k].ha.toFixed(0)+' | Tn: '+bd[k].prod.toFixed(0);}}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:12}},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Rinde real (tn/ha)',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+// Sortable tabla
+function bg_ec(e){if(!e)return '<span class="bg bgr">—</span>';var m={Excelente:'bv','Muy bueno':'bb',Bueno:'bv',Regular:'bam',Malo:'brd'};return '<span class="bg '+(m[e]||'bgr')+'">'+e+'</span>';}
+function bg_sc(s){var m={Aspersion:'bb',Gravedad:'bv',Secano:'bam'};return '<span class="bg '+(m[s]||'bgr')+'">'+s+'</span>';}
+var cTabData=[];
+function renderCosechaTabla(){
+  var q=((document.getElementById('cSearch')||{}).value||'').toLowerCase();
+  var vis=getCFiltered().filter(d=>!q||(d.Lote||'').toLowerCase().includes(q)||(d.Seccion||'').toLowerCase().includes(q)||(d.Material||'').toLowerCase().includes(q)||(d.Contratistas||'').toLowerCase().includes(q));
+  cTabData=vis.map(d=>{
+    var rc=d.Ha_Cosechadas>0,dif=rc&&d.Rend_Est>0?((d.Rend_Real-d.Rend_Est)/d.Rend_Est*100):null;
+    var ds=dif!=null?'<span style="color:'+(dif>=0?CC.gn:CC.rd)+';font-weight:600;font-family:DM Mono,monospace;font-size:12px;">'+(dif>=0?'+':'')+dif.toFixed(1)+'%</span>':'—';
+    return {tr:'<tr><td><strong>'+d.Lote+'</strong></td><td class="tm">'+d.Seccion+'</td><td class="tm">'+(d.Ha_Sembradas||'—')+'</td><td class="'+(rc?'tgn':'tm')+'">'+(rc?d.Ha_Cosechadas:'—')+'</td><td class="'+(d.Falta_Cosechar>0?'trd':'tm')+'">'+(d.Falta_Cosechar>0?d.Falta_Cosechar:'✓')+'</td><td>'+bg_sc(d.Sistema)+'</td><td class="tm">'+d.Material+'</td><td>'+bg_ec(d.Estado)+'</td><td class="'+(rc?'tgn':'tm')+'">'+(rc?sf(d.Rend_Real)+' tn/ha':'—')+'</td><td class="tm">'+(d.Prod_Real>0?Math.round(d.Prod_Real).toLocaleString('es-AR'):'—')+'</td><td class="tm" style="color:var(--t3)">'+(d.Rend_Est?sf(d.Rend_Est)+' tn/ha':'—')+'</td><td>'+ds+'</td><td class="tm">'+(d.IFC||'—')+'</td><td class="tm">'+(d.FFC||'—')+'</td><td class="tm">'+(d.Semana>0?'Sem.'+d.Semana:'—')+'</td><td class="tm" style="font-size:11px">'+(d.Contratistas||'—')+'</td><td class="tm">'+(d.Tarifa>0?'$'+d.Tarifa.toLocaleString('es-AR'):'—')+'</td></tr>',
+      v:[d.Lote,d.Seccion,d.Ha_Sembradas||0,d.Ha_Cosechadas||0,d.Falta_Cosechar||0,d.Sistema,d.Material,d.Estado,d.Rend_Real||0,d.Prod_Real||0,d.Rend_Est||0,dif||0,d.IFC||'',d.Semana||0]};
+  });
+  var tb=document.getElementById('ctablaBody');if(!tb)return;
+  tb.innerHTML=cTabData.map(r=>r.tr).join('');
+  var tbl=tb.closest('table');
+  if(tbl)tbl.querySelectorAll('thead th').forEach((th,i)=>{
+    if(th._sb)return;th._sb=true;th.style.cursor='pointer';th.title='Ordenar';
+    th.addEventListener('click',()=>{
+      var asc=th._asc=!th._asc;
+      tbl.querySelectorAll('thead th').forEach(h=>h.textContent=h.textContent.replace(/ [▲▼]$/,''));
+      th.textContent+=asc?' ▲':' ▼';
+      var s=[...cTabData].sort((a,b)=>{var av=a.v[i],bv=b.v[i];return typeof av==='string'?(asc?av.localeCompare(bv):bv.localeCompare(av)):(asc?(av||0)-(bv||0):(bv||0)-(av||0));});
+      tb.innerHTML=s.map(r=>r.tr).join('');
+    });
+  });
+}
+
+// ===== MAIN COSECHA UPDATE — all charts use filtered data =====
+
+function repopulateCosechaFilters(){
+  var data=window.ACTIVE_COS||CLOTES;
+  function fillSelect(id, vals){
+    var s=document.getElementById(id); if(!s)return;
+    var cur=s.value;
+    while(s.options.length>1) s.remove(1);
+    vals.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o);});
+    s.value=vals.indexOf(cur)>=0?cur:'';
+  }
+  var secs=[...new Set(data.map(function(d){return d.Seccion;}).filter(Boolean))].sort();
+  var sis=[...new Set(data.map(function(d){return d.Sistema;}).filter(Boolean))].sort();
+  var mats=[...new Set(data.map(function(d){return d.Material;}).filter(Boolean))].sort();
+  var acts=[...new Set(data.map(function(d){return d.Actividad;}).filter(Boolean))].sort();
+  var ests=[...new Set(data.map(function(d){return d.Estado&&d.Estado!=='nan'&&d.Estado!=='None'?d.Estado:null;}).filter(Boolean))].sort();
+  var antSet={};
+  data.forEach(function(d){
+    if(d.Antecesor1&&d.Antecesor1!=='nan'&&d.Antecesor1!=='None') antSet[d.Antecesor1]=1;
+    if(d.Antecesor2&&d.Antecesor2!=='nan'&&d.Antecesor2!=='None') antSet[d.Antecesor2]=1;
+  });
+  var ants=Object.keys(antSet).sort();
+  fillSelect('cSeccion', secs);
+  fillSelect('cSistema', sis);
+  fillSelect('cMaterial', mats);
+  fillSelect('iMaterial', mats);
+  fillSelect('cActividad', acts);
+  fillSelect('cEstado', ests);
+  fillSelect('cAntecesor', ants);
+  // Contratistas
+  var cts=[];
+  if(data.some(function(d){return (d.Ha_Travassi||0)>0;})) cts.push('Travassi');
+  if(data.some(function(d){return (d.Ha_Emiliani||0)>0;})) cts.push('Emiliani');
+  if(data.some(function(d){return (d.Ha_Hunkalo||0)>0;})) cts.push('Hunkalo');
+  if(data.some(function(d){return (d.Ha_Lodi||0)>0;})) cts.push('Lodi');
+  fillSelect('cContratista', cts);
+}
+
+function updateCosecha(){
+  repopulateCosechaFilters();
+  var all=getCFiltered(),cos=all.filter(d=>d.Ha_Cosechadas>0);
+  updateCKPIs(all,cos);updateCAvance(all);updateCRendSec(cos);updateCContratista(cos);
+  updateCMaterial(cos);updateCDiario();updateCSistema(cos);
+  updateIFSChart(all);  // pass filtered lotes
+  renderCosechaTabla();
+}
+function resetCosechaFilters(){
+  ['cSeccion','cSistema','cMaterial','cContratista','cActividad','cEstado','cAntecesor','iSistema','iMaterial','iSeccion'].forEach(id=>{var e=document.getElementById(id);if(e)e.value='';});
+  var s=document.getElementById('cSearch');if(s)s.value='';
+  updateCosecha();
+}
+
+// ===== MAQUINISTAS / CONTRATISTAS =====
+function initMaquinistas(){
+  // Check if any non-soja crop is active without soja
+  var act=getActiveCrops?getActiveCrops():[];
+  var hasMaiz=act.some(function(c){return c.id==='maiz';});
+  var hasSoja=act.some(function(c){return c.id==='soja';});
+  var hasAlgodon=act.some(function(c){return c.id==='algodon';});
+  if(hasAlgodon&&!hasSoja&&!hasMaiz){
+    initMaquinistasAlgodon(); return;
+  }
+  if(hasMaiz&&!hasSoja){
+    initMaquinistasMaiz(); return;
+  }
+  var sm=document.getElementById('maqSojaContent');
+  var mm=document.getElementById('maqMaizContent');
+  if(sm) sm.style.display='block';
+  if(mm) mm.style.display='none';
+  updatePerdidas();updateHumDia();updateHumDiaria();updateRendDia();updateRendDiaria();updateResumenDia();
+  buildHumRanking();buildHumLoteCt();buildHumTables();
+  buildRendRanking();buildRendCompar();buildRendDetTable();
+}
+
+function initMaquinistasAlgodon(){
+  var recs=(ALLDATA.algodon&&ALLDATA.algodon.maq_records)||[];
+  var resumen=(ALLDATA.algodon&&ALLDATA.algodon.resumen_dia)||[];
+  var ALD_PERD=(ALLDATA.algodon&&ALLDATA.algodon.perdidas)||{by_lote:[],controles:[],threshold:1.5};
+  // Show maiz/algodon content, hide soja
+  var sm=document.getElementById('maqSojaContent');
+  var mm=document.getElementById('maqMaizContent');
+  var bn=document.getElementById('maqCropBanner');
+  if(sm) sm.style.display='none';
+  if(mm) mm.style.display='block';
+  if(bn) bn.style.display='none';
+  if(typeof mcharts==='undefined') window.mcharts={};
+  if(typeof hcharts==='undefined') window.hcharts={};
+  if(typeof rcharts==='undefined') window.rcharts={};
+  // Perdidas algodon - umbral diferente (3% para algodon bruto)
+  var THRESH_ALD=ALD_PERD.threshold||7.0;
+  var THRESH_ALD_MED=ALD_PERD.threshold_med||5.0;
+  var mpKpi=document.getElementById('maqMaizPerdKpi');
+  if(mpKpi&&ALD_PERD.by_lote.length){
+    var avg=ALD_PERD.by_lote.reduce(function(a,d){return a+d.avg*d.n;},0)/
+            Math.max(ALD_PERD.by_lote.reduce(function(a,d){return a+d.n;},0),1);
+    var alto=ALD_PERD.by_lote.filter(function(d){return d.status==='ALTO';}).length;
+    var ctrl=ALD_PERD.controles.reduce(function(a,r){return a+r.N_Controles;},0);
+    mpKpi.innerHTML='<div class="stl" style="margin-top:0;">Pérdidas de cosecha — Algodón</div>'
+      +'<div class="kg" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">'
+      +'<div class="kp"><div class="kl">PÉRDIDA PROMEDIO</div>'
+        +'<div class="kv" style="color:'+(avg>THRESH_ALD?CC.rd:avg>THRESH_ALD_MED?CC.am:CC.gn)+';">'+avg.toFixed(2)+'%</div>'
+        +'<div class="ks">'+(ALD_PERD.by_lote.length)+' lotes monitoreados</div></div>'
+      +'<div class="kp"><div class="kl">LOTES SOBRE UMBRAL</div>'
+        +'<div class="kv" style="color:'+CC.rd+'">'+alto+'</div>'
+        +'<div class="ks">&gt;7.00%</div></div>'
+      +'<div class="kp"><div class="kl">TOTAL CONTROLES</div>'
+        +'<div class="kv" style="color:'+CC.bl+'">'+ctrl+'</div>'
+        +'<div class="ks">'+(ALD_PERD.controles.length)+' monitoreadores</div></div>'
+      +'</div>';
+    var ptb=document.getElementById('maqMaizPerdTable');
+    if(ptb) ptb.innerHTML=ALD_PERD.by_lote.sort(function(a,b){return b.avg-a.avg;}).map(function(r){
+      var c=r.status==='ALTO'?CC.rd:r.status==='MEDIO'?CC.am:CC.gn;
+      return '<tr><td><strong>'+r.Lote+'</strong></td>'
+        +'<td class="tm">'+r.n+'</td>'
+        +'<td style="font-weight:600;color:'+c+'">'+r.avg.toFixed(2)+'%</td>'
+        +'<td class="tm">'+r.mn.toFixed(2)+'% – '+r.mx.toFixed(2)+'%</td>'
+        +'<td class="tm" style="font-size:11px">'+r.resp+'</td>'
+        +'<td><span class="badge" style="background:'+c+';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">'+r.status+'</span></td></tr>';
+    }).join('');
+  }
+  // Resumen dia algodon - rinde bruto tn/ha
+  var tb=document.getElementById('resumenDiaBody');
+  if(tb){
+    if(resumen.length){
+      tb.innerHTML=resumen.map(function(r){
+        var dr=r.Dif_Rend_pct!=null?(r.Dif_Rend_pct>=0?'+':'')+r.Dif_Rend_pct.toFixed(1)+'%':'—';
+        var sc=r.Status==='CORREGIR'?CC.rd:r.Status==='CERCA'?CC.am:CC.gn;
+        return '<tr><td>'+r.Fecha+'</td><td>'+r.Nombre+'</td><td>'+r.Contratista+'</td>'
+          +'<td class="tm">'+r.Lote+'</td><td class="tm">'+r.Ha.toFixed(1)+'</td>'
+          +'<td class="tm">—</td><td class="tm">—</td><td class="tm">—</td>'
+          +'<td class="tm">'+r.Rend_JD.toFixed(3)+' tn/ha</td>'
+          +'<td class="tm">'+r.Rend_Real.toFixed(3)+' tn/ha</td>'
+          +'<td><span style="font-weight:600;color:'+sc+'">'+dr+'</span></td>'
+          +'<td><span class="badge" style="background:'+sc+';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">'+r.Status+'</span></td></tr>';
+      }).join('');
+    } else {
+      tb.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--t3);padding:20px;">Sin datos JD de algodón</td></tr>';
+    }
+  }
+  // Rinde comparison chart
+  if(typeof rcharts==='undefined') window.rcharts={};
+  var el=document.getElementById('rmCompar');
+  if(el&&recs.length){
+    if(rcharts.compar)rcharts.compar.destroy();
+    rcharts.compar=new Chart(el,{type:'bar',
+      data:{
+        labels:recs.map(function(r){return r.Lote+' '+r.Fecha_JD+' ('+r.Ha_JD.toFixed(0)+'ha)';}),
+        datasets:[
+          {label:'JD Algodón c/semilla',data:recs.map(function(r){return r.Rend_JD_seco_tha;}),backgroundColor:'rgba(138,90,16,.75)',borderRadius:5},
+          {label:'Real Campo',data:recs.map(function(r){return r.Rend_Real_tha;}),backgroundColor:'rgba(26,122,90,.75)',borderRadius:5}
+        ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:11}}},
+          tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(3)+' tn/ha';}}}},
+        scales:{x:{ticks:{color:CC.t3},grid:{display:false}},
+          y:{ticks:{color:CC.t3,callback:function(v){return v+' tn/ha';}},grid:{color:'rgba(0,0,0,.05)'}}
+        }}});
+  }
+}
+
+function initMaquinistasMaiz(){
+  var recs=(ALLDATA.maiz&&ALLDATA.maiz.maq_records)||[];
+  var resumen=(ALLDATA.maiz&&ALLDATA.maiz.resumen_dia)||[];
+  // Show maiz content, hide soja content
+  var sm=document.getElementById('maqSojaContent');
+  var mm=document.getElementById('maqMaizContent');
+  var bn=document.getElementById('maqCropBanner');
+  if(sm) sm.style.display='none';
+  if(mm) mm.style.display='block';
+  if(bn) bn.style.display='none';
+  if(typeof mcharts==='undefined') window.mcharts={};
+  if(typeof hcharts==='undefined') window.hcharts={};
+  if(typeof rcharts==='undefined') window.rcharts={};
+  ['hmDia','hmDiaria','hmLoteCt','rmDia','rmDiaria','hmRanking','rmRanking','rmCompar'].forEach(function(id){
+    var el=document.getElementById(id);if(el){var ctx=el.getContext('2d');if(ctx)ctx.clearRect(0,0,el.width,el.height);}
+    if(mcharts[id]){mcharts[id].destroy();delete mcharts[id];}
+    if(hcharts[id]){hcharts[id].destroy();delete hcharts[id];}
+    if(rcharts[id]){rcharts[id].destroy();delete rcharts[id];}
+  });
+  // Maiz perdidas
+  var MAIZ_PERD=(ALLDATA.maiz&&ALLDATA.maiz.perdidas)||{by_lote:[],controles:[],threshold:1.5};
+  var mpKpi=document.getElementById('maqMaizPerdKpi');
+  if(mpKpi&&MAIZ_PERD.by_lote.length){
+    var avg=MAIZ_PERD.by_lote.reduce(function(a,d){return a+d.avg*d.n;},0)/
+            Math.max(MAIZ_PERD.by_lote.reduce(function(a,d){return a+d.n;},0),1);
+    var alto=MAIZ_PERD.by_lote.filter(function(d){return d.status==='ALTO';}).length;
+    var ctrl=MAIZ_PERD.controles.reduce(function(a,r){return a+r.N_Controles;},0);
+    mpKpi.innerHTML='<div class="stl" style="margin-top:0;">Pérdidas de cosecha — Maíz</div>'
+      +'<div class="kg" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">'
+      +'<div class="kp"><div class="kl">PÉRDIDA PROMEDIO</div>'
+        +'<div class="kv" style="color:'+(avg>1.5?CC.rd:avg>1.0?CC.am:CC.gn)+';">'+avg.toFixed(2)+'%</div>'
+        +'<div class="ks">'+MAIZ_PERD.by_lote.length+' lotes monitoreados</div></div>'
+      +'<div class="kp"><div class="kl">LOTES SOBRE UMBRAL</div>'
+        +'<div class="kv" style="color:'+CC.rd+';">'+alto+'</div>'
+        +'<div class="ks">&gt;1.50%</div></div>'
+      +'<div class="kp"><div class="kl">TOTAL CONTROLES</div>'
+        +'<div class="kv" style="color:'+CC.bl+';">'+ctrl+'</div>'
+        +'<div class="ks">'+MAIZ_PERD.controles.length+' monitoreadores</div></div>'
+      +'</div>';
+    // Perdidas table
+    var ptb=document.getElementById('maqMaizPerdTable');
+    if(ptb) ptb.innerHTML=MAIZ_PERD.by_lote.sort(function(a,b){return b.avg-a.avg;}).map(function(r){
+      var c=r.status==='ALTO'?CC.rd:r.status==='MEDIO'?CC.am:CC.gn;
+      return '<tr><td><strong>'+r.Lote+'</strong></td>'
+        +'<td class="tm">'+r.n+'</td>'
+        +'<td style="font-weight:600;color:'+c+'">'+r.avg.toFixed(2)+'%</td>'
+        +'<td class="tm">'+r.mn.toFixed(2)+'% – '+r.mx.toFixed(2)+'%</td>'
+        +'<td class="tm" style="font-size:11px">'+r.resp+'</td>'
+        +'<td><span class="badge" style="background:'+c+';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">'+r.status+'</span></td></tr>';
+    }).join('');
+  }
+
+  // Build resumen table with maiz data
+  var tb=document.getElementById('resumenDiaBody');
+  if(tb&&resumen.length){
+    tb.innerHTML=resumen.map(function(r){
+      var dh=r.Dif_Hum!=null?r.Dif_Hum.toFixed(2):'—';
+      var dr=r.Dif_Rend_pct!=null?(r.Dif_Rend_pct>=0?'+':'')+r.Dif_Rend_pct.toFixed(1)+'%':'—';
+      var sc=r.Status==='CORREGIR'?CC.rd:r.Status==='CERCA'?CC.am:CC.gn;
+      return '<tr><td>'+r.Fecha+'</td><td>'+r.Nombre+'</td><td>'+r.Contratista+'</td>'
+        +'<td class="tm">'+r.Lote+'</td><td class="tm">'+r.Ha.toFixed(1)+'</td>'
+        +'<td class="tm">'+r.Hum_JD.toFixed(1)+'%</td><td class="tm">—</td><td class="tm">—</td>'
+        +'<td class="tm">'+r.Rend_JD.toFixed(2)+'</td><td class="tm">'+r.Rend_Real.toFixed(2)+'</td>'
+        +'<td><span style="font-weight:600;color:'+sc+'">'+dr+'</span></td>'
+        +'<td><span class="badge" style="background:'+sc+';color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;">'+r.Status+'</span></td></tr>';
+    }).join('');
+  } else if(tb){
+    tb.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--t3);padding:20px;">Sin datos JD de maíz para el día</td></tr>';
+  }
+  // Simple rinde comparison bar chart
+  var el=document.getElementById('rmCompar');
+  if(el&&recs.length){
+    if(rcharts&&rcharts.compar)rcharts.compar.destroy();
+    rcharts.compar=new Chart(el,{type:'bar',
+      data:{
+        labels:recs.map(function(r){return r.Lote+' ('+r.Contratista+')';}),
+        datasets:[
+          {label:'JD Peso Húmedo',data:recs.map(function(r){return r.Rend_JD_seco_tha;}),backgroundColor:'rgba(26,74,122,.75)',borderRadius:5},
+          {label:'Real Campo',data:recs.map(function(r){return r.Rend_Real_tha;}),backgroundColor:'rgba(26,122,90,.75)',borderRadius:5}
+        ]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:11}}},
+          tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(2)+' tn/ha';}}},
+        },
+        scales:{x:{ticks:{color:CC.t3},grid:{display:false}},
+          y:{ticks:{color:CC.t3,callback:function(v){return v+' tn/ha';}},grid:{color:'rgba(0,0,0,.05)'}}}
+      }});
+  }
+}
+
+// Izquierda: humedad del día por lote (JD barras azules vs balanza barras verdes)
+function updateHumDia(){
+  var el=document.getElementById('hcDia');if(!el)return;
+  var fechas=[...new Set(MAQ_RECORDS.filter(r=>r.Fecha_JD&&r.En_Campo&&r.Nombre!=='Sin identificar').map(r=>r.Fecha_JD))].sort().reverse();
+  var fechaSel=cvg('hFiltFecha')||fechas[0];
+  var ctSel=cvg('hFiltCtDia');
+  var recs=MAQ_RECORDS.filter(r=>r.Fecha_JD===fechaSel&&r.En_Campo&&r.Nombre!=='Sin identificar'&&(!ctSel||r.Contratista===ctSel));
+  if(!recs.length){if(hcharts.dia)hcharts.dia.destroy();return;}
+  var byLote={};
+  recs.forEach(r=>{
+    if(!byLote[r.Lote])byLote[r.Lote]={jdW:0,jdH:0,bal:null};
+    byLote[r.Lote].jdW+=r.Hum_JD*r.Ha_JD;byLote[r.Lote].jdH+=r.Ha_JD;
+    if(r.Hum_Bal_Dia!=null)byLote[r.Lote].bal=r.Hum_Bal_Dia;
+    else if(r.Hum_Bal!=null&&byLote[r.Lote].bal==null)byLote[r.Lote].bal=r.Hum_Bal;
+  });
+  var lotes=Object.keys(byLote).sort();
+  var jdV=lotes.map(l=>byLote[l].jdH>0?+(byLote[l].jdW/byLote[l].jdH).toFixed(2):null);
+  var balV=lotes.map(l=>byLote[l].bal);
+  if(hcharts.dia)hcharts.dia.destroy();
+  hcharts.dia=new Chart(el,{type:'bar',
+    data:{labels:lotes,datasets:[
+      {label:'JD cosechadora',data:jdV,backgroundColor:'rgba(26,74,122,.8)',borderRadius:4,borderSkipped:false},
+      {label:'Balanza campo',data:balV,backgroundColor:'rgba(26,122,90,.8)',borderRadius:4,borderSkipped:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:11},boxWidth:10,padding:8}},
+        tooltip:{callbacks:{afterBody:items=>{var l=lotes[items[0].dataIndex];var jv=jdV[l];var bv=balV[l];if(jv&&bv){var df=jv-bv;return 'D: '+(df>=0?'+':'')+df.toFixed(2)+'%';}return null;}}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Humedad %',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+// Derecha: histórico JD (línea sólida) vs balanza (línea punteada) por contratista
+function updateHumDiaria(){
+  var el=document.getElementById('hcDiaria');if(!el)return;
+  var ct=cvg('hFiltMaq'),desde=cvg('hFiltDesde');
+  var balData=HUM_DIARIA.filter(r=>(!ct||r.Contratista===ct)&&(!desde||r.Fecha>=desde));
+  var jdData=HUM_JD_DIA.filter(r=>(!ct||r.Contratista===ct)&&(!desde||r.Fecha>=desde));
+  var cts=[...new Set([...balData.map(r=>r.Contratista),...jdData.map(r=>r.Contratista)])].filter(c=>!ct||c===ct).sort();
+  var allD=[...new Set([...balData.map(r=>r.Fecha),...jdData.map(r=>r.Fecha)])].sort().filter(d=>!desde||d>=desde);
+  var datasets=[];
+  cts.forEach(c=>{
+    var col=CT_COLORS[c]||CC.t3;
+    // JD line - solid
+    datasets.push({label:c+' (JD)',data:allD.map(d=>{var r=jdData.find(x=>x.Fecha===d&&x.Contratista===c);return r?r.Hum_JD_pond:null;}),
+      borderColor:col,backgroundColor:'transparent',borderWidth:2.5,tension:.3,pointRadius:3,spanGaps:true,
+      borderDash:[],fill:false});
+    // Balanza line - dashed
+    datasets.push({label:c+' (balanza)',data:allD.map(d=>{var r=balData.find(x=>x.Fecha===d&&x.Contratista===c);return r?r.Hum_pond:null;}),
+      borderColor:col,backgroundColor:'transparent',borderWidth:2,tension:.3,pointRadius:3,spanGaps:true,
+      borderDash:[6,3],fill:false,pointStyle:'triangle'});
+  });
+  if(hcharts.diaria)hcharts.diaria.destroy();
+  hcharts.diaria=new Chart(el,{type:'line',
+    data:{labels:allD.map(d=>d.slice(5)),datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:10},boxWidth:12,padding:6,usePointStyle:true}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+'%',afterBody:items=>{
+          var d=allD[items[0].dataIndex];
+          var pairs=cts.map(c=>{
+            var jv=jdData.find(x=>x.Fecha===d&&x.Contratista===c);
+            var bv=balData.find(x=>x.Fecha===d&&x.Contratista===c);
+            if(jv&&bv){var df=jv.Hum_JD_pond-bv.Hum_pond;return c+' D: '+(df>=0?'+':'')+df.toFixed(2)+'%';}return null;
+          }).filter(Boolean);
+          return pairs.length?['---',...pairs]:[];
+        }}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:10},maxRotation:45,maxTicksLimit:20},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Humedad %',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+// --- HUMEDAD RANKING ---
+function buildHumRanking(){
+  var el=document.getElementById('hcRanking');if(!el)return;
+  if(hcharts.humRank)hcharts.humRank.destroy();
+  var real=MAQ_SUMMARY.filter(m=>m.Nombre!=='Sin identificar');
+  var sorted=[...real].sort((a,b)=>a.Dif_Hum_pond-b.Dif_Hum_pond);
+  var vals=sorted.map(m=>m.Dif_Hum_pond);
+  var bg=vals.map(v=>{var a=Math.abs(v);return a<=0.3?CC.gn:a<=1?'#d29922':CC.rd;});
+  hcharts.humRank=new Chart(el,{type:'bar',
+    data:{labels:sorted.map(m=>m.Nombre),datasets:[{data:vals,backgroundColor:bg,borderRadius:5,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.x>=0?'+':'')+c.parsed.x.toFixed(2)+'% vs balanza',afterLabel:c=>{var m=sorted[c.dataIndex];return m.Contratista+' · '+m.Maquinista+' · '+m.Ha+' ha';}}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Diferencia Humedad (JD − Balanza) %',color:CC.t3,font:{size:11}}},
+        y:{ticks:{color:CC.t2,font:{size:10,family:'DM Mono'}},grid:{display:false}}}
+    }});
+}
+
+function buildHumLoteCt(){
+  var el=document.getElementById('hcLoteCt');if(!el)return;
+  if(hcharts.humLote)hcharts.humLote.destroy();
+  var difs=COMPARE.map(r=>r.Dif_JD_minus_Balanza);
+  var bg=difs.map(v=>{if(v==null)return CC.t3;var a=Math.abs(v);return a<=0.3?CC.gn:a<=1?CC.am:CC.rd;});
+  hcharts.humLote=new Chart(el,{type:'bar',
+    data:{labels:COMPARE.map(r=>r.Lote+' ('+r.Contratista+')'),datasets:[{data:difs,backgroundColor:bg,borderRadius:5,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'% vs balanza',afterLabel:c=>{var r=COMPARE[c.dataIndex];return 'JD: '+r.Hum_JD+'% | Balanza: '+r.Hum_Balanza+'% | '+r.N_Tickets_Balanza+' tickets';}}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:10},maxRotation:45},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Diferencia %',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+function buildHumTables(){
+  var real=MAQ_SUMMARY.filter(m=>m.Nombre!=='Sin identificar');
+  var sorted=[...real].sort((a,b)=>Math.abs(b.Dif_Hum_pond)-Math.abs(a.Dif_Hum_pond));
+  var tb=document.getElementById('hTablaBody');
+  if(tb)tb.innerHTML=sorted.map(m=>{
+    var abs=Math.abs(m.Dif_Hum_pond),col=humClr(m.Dif_Hum_pond);
+    var lbl=abs<=0.3?'✅ Muy precisa':abs<=1?'⚠️ Tolerable':'❌ Revisar calibración';
+    var wB=0,wJ=0,th=0;(m.Detalle||[]).forEach(d=>{if(d.ha){wB+=(d.hum_bal||0)*d.ha;wJ+=d.hum_jd*d.ha;th+=d.ha;}});
+    return '<tr><td><strong>'+m.Nombre+'</strong></td><td><span class="bg" style="background:'+CT_COLORS[m.Contratista]+'22;color:'+CT_COLORS[m.Contratista]+'">'+m.Contratista+'</span></td><td class="tm">'+m.Maquinista+'</td><td class="tm">'+m.Ha+' ha</td><td class="tm">'+m.Lotes.join(', ')+'</td><td class="tm">'+(th>0?(wB/th).toFixed(2):'—')+'%</td><td class="tm">'+(th>0?(wJ/th).toFixed(2):'—')+'%</td><td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+col+';">'+(m.Dif_Hum_pond>=0?'+':'')+m.Dif_Hum_pond.toFixed(2)+'%</td><td style="font-size:12px;">'+lbl+'</td></tr>';
+  }).join('');
+  var tb2=document.getElementById('hDetBody');
+  if(tb2)tb2.innerHTML=[...COMPARE].sort((a,b)=>a.Lote.localeCompare(b.Lote)).map(r=>{
+    var col=r.Dif_JD_minus_Balanza==null?CC.t3:humClr(r.Dif_JD_minus_Balanza);
+    return '<tr><td><strong>'+r.Lote+'</strong></td><td class="tm">'+r.Contratista+'</td><td class="tm" style="font-size:11px">'+(r.Maquinas||[]).join('<br>')+'</td><td class="tm">'+r.N_Tickets_Balanza+'</td><td class="tm">'+(r.Hum_JD||'—')+'%</td><td class="tm">'+(r.Hum_Balanza||'—')+'%</td><td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+col+';">'+(r.Dif_JD_minus_Balanza!=null?(r.Dif_JD_minus_Balanza>=0?'+':'')+r.Dif_JD_minus_Balanza.toFixed(2)+'%':'—')+'</td></tr>';
+  }).join('');
+}
+
+function buildRendRanking(){
+  var el=document.getElementById('hcRendRanking');if(!el)return;
+  if(hcharts.rendRank)hcharts.rendRank.destroy();
+  var real=MAQ_SUMMARY.filter(m=>m.Nombre!=='Sin identificar'&&m.Ha>=5);
+  var sorted=[...real].sort((a,b)=>a.Dif_Rend_pct-b.Dif_Rend_pct);
+  hcharts.rendRank=new Chart(el,{type:'bar',
+    data:{labels:sorted.map(m=>m.Nombre),datasets:[{data:sorted.map(m=>m.Dif_Rend_pct),backgroundColor:sorted.map(m=>rdClr(m.Dif_Rend_pct)),borderRadius:5,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>(c.parsed.x>=0?'+':'')+c.parsed.x.toFixed(1)+'% vs campo',afterLabel:c=>{var m=sorted[c.dataIndex];return 'JD: '+m.Rend_JD_pond.toFixed(2)+' | Real: '+m.Rend_Real_pond.toFixed(2)+' tn/ha | '+m.Ha+' ha';}}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Diferencia Rinde JD − Real (%)',color:CC.t3,font:{size:11}}},
+        y:{ticks:{color:CC.t2,font:{size:10,family:'DM Mono'}},grid:{display:false}}}
+    }});
+}
+
+function buildRendCompar(){
+  var el=document.getElementById('hcRendCompar');if(!el)return;
+  if(hcharts.rendComp)hcharts.rendComp.destroy();
+  var real=MAQ_SUMMARY.filter(m=>m.Nombre!=='Sin identificar'&&m.Ha>=5);
+  var sorted=[...real].sort((a,b)=>a.Dif_Rend_pct-b.Dif_Rend_pct);
+  hcharts.rendComp=new Chart(el,{type:'bar',
+    data:{labels:sorted.map(m=>m.Maquinista||m.Nombre),datasets:[
+      {label:'JD (tn/ha)',data:sorted.map(m=>m.Rend_JD_pond),backgroundColor:'rgba(26,74,122,.75)',borderRadius:4,borderSkipped:false},
+      {label:'Real campo (tn/ha)',data:sorted.map(m=>m.Rend_Real_pond),backgroundColor:'rgba(26,122,90,.75)',borderRadius:4,borderSkipped:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:11},boxWidth:12,padding:10}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+' tn/ha'}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:10},maxRotation:25},grid:{display:false}},y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'tn/ha',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+var rendDetData=[];
+function buildRendDetTable(){
+  var real=MAQ_RECORDS.filter(r=>r.Nombre!=='Sin identificar'&&r.Rend_Real_tha>0);
+  var sorted=[...real].sort((a,b)=>a.Nombre.localeCompare(b.Nombre)||a.Lote.localeCompare(b.Lote));
+  rendDetData=sorted.map(r=>{
+    var pct=r.Dif_Rend_pct,col=rdClr(pct||0);
+    return {tr:'<tr><td><strong>'+r.Nombre+'</strong></td><td><span class="bg" style="background:'+CT_COLORS[r.Contratista]+'22;color:'+CT_COLORS[r.Contratista]+'">'+r.Contratista+'</span></td><td class="tm"><strong>'+r.Lote+'</strong></td><td class="tm">'+(r.Ha_JD||'—')+' ha</td><td class="tm">'+sf(r.Rend_JD_seco_tha)+' tn/ha</td><td class="tm">'+sf(r.Rend_Real_tha)+' tn/ha</td><td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+col+';">'+(pct!=null?(pct>=0?'+':'')+pct.toFixed(1)+'%':'—')+'</td><td style="font-size:11px;color:'+col+';">'+rdLbl(pct||0)+'</td></tr>',
+      v:[r.Nombre,r.Contratista,r.Lote,r.Ha_JD||0,r.Rend_JD_seco_tha||0,r.Rend_Real_tha||0,pct||0]};
+  });
+  var tb=document.getElementById('hRendDetBody');if(!tb)return;
+  tb.innerHTML=rendDetData.map(r=>r.tr).join('');
+  var tbl=tb.closest('table');
+  if(tbl)tbl.querySelectorAll('thead th').forEach((th,i)=>{
+    if(th._sb)return;th._sb=true;th.style.cursor='pointer';th.title='Ordenar';
+    th.addEventListener('click',()=>{
+      var asc=th._asc=!th._asc;
+      tbl.querySelectorAll('thead th').forEach(h=>h.textContent=h.textContent.replace(/ [▲▼]$/,''));
+      th.textContent+=asc?' ▲':' ▼';
+      var s=[...rendDetData].sort((a,b)=>{var av=a.v[i],bv=b.v[i];return typeof av==='string'?(asc?av.localeCompare(bv):bv.localeCompare(av)):(asc?(av||0)-(bv||0):(bv||0)-(av||0));});
+      tb.innerHTML=s.map(r=>r.tr).join('');
+    });
+  });
+}
+
+
+// ===== RINDE DIA CHART (izquierda) =====
+function updateRendDia(){
+  var el=document.getElementById('hcRendDia');if(!el)return;
+  var fechas=[...new Set(MAQ_RECORDS.filter(r=>r.Fecha_JD&&r.En_Campo&&r.Nombre!=='Sin identificar').map(r=>r.Fecha_JD))].sort().reverse();
+  var fechaSel=cvg('hFiltFechaRend')||fechas[0];
+  var ctSel=cvg('hFiltCtRend');
+  var recs=MAQ_RECORDS.filter(r=>r.Fecha_JD===fechaSel&&r.En_Campo&&r.Nombre!=='Sin identificar'&&r.Rend_JD_seco_tha>0&&r.Rend_Real_tha>0&&(!ctSel||r.Contratista===ctSel));
+  if(!recs.length){if(hcharts.rendDia)hcharts.rendDia.destroy();return;}
+  var byLote={};
+  recs.forEach(r=>{
+    if(!byLote[r.Lote])byLote[r.Lote]={jdW:0,jdH:0,realW:0,realH:0};
+    byLote[r.Lote].jdW+=r.Rend_JD_seco_tha*r.Ha_JD;byLote[r.Lote].jdH+=r.Ha_JD;
+    byLote[r.Lote].realW+=r.Rend_Real_tha*r.Ha_JD;byLote[r.Lote].realH+=r.Ha_JD;
+  });
+  var lotes=Object.keys(byLote).sort();
+  var jdV=lotes.map(l=>byLote[l].jdH>0?+(byLote[l].jdW/byLote[l].jdH).toFixed(2):null);
+  var realV=lotes.map(l=>byLote[l].realH>0?+(byLote[l].realW/byLote[l].realH).toFixed(2):null);
+  if(hcharts.rendDia)hcharts.rendDia.destroy();
+  hcharts.rendDia=new Chart(el,{type:'bar',
+    data:{labels:lotes,datasets:[
+      {label:'JD cosechadora',data:jdV,backgroundColor:'rgba(26,74,122,.8)',borderRadius:4,borderSkipped:false},
+      {label:'Real de campo',data:realV,backgroundColor:'rgba(26,122,90,.8)',borderRadius:4,borderSkipped:false}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:11},boxWidth:10,padding:8}},
+        tooltip:{callbacks:{afterBody:items=>{
+          var l=lotes[items[0].dataIndex];var jv=jdV[l];var bv=realV[l];
+          if(jv!=null&&bv!=null){var df=jv-bv;return 'D: '+(df>=0?'+':'')+df.toFixed(2)+' tn/ha ('+(df/bv*100>=0?'+':'')+((df/bv*100)).toFixed(1)+'%)';}
+          return null;
+        }}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:11}},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Rinde (tn/ha)',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+// ===== RINDE HISTORICO CHART (derecha) =====
+function updateRendDiaria(){
+  var el=document.getElementById('hcRendDiaria');if(!el)return;
+  var ct=cvg('hFiltMaqRend'),desde=cvg('hFiltDesdeRend');
+  var jdData=REND_JD_DIA.filter(r=>(!ct||r.Contratista===ct)&&(!desde||r.Fecha>=desde));
+  var campoData=REND_CAMPO_DIA.filter(r=>(!ct||r.Contratista===ct)&&(!desde||r.Fecha>=desde));
+  var cts=[...new Set([...jdData.map(r=>r.Contratista),...campoData.map(r=>r.Contratista)])].filter(c=>!ct||c===ct).sort();
+  var allD=[...new Set([...jdData.map(r=>r.Fecha),...campoData.map(r=>r.Fecha)])].sort().filter(d=>!desde||d>=desde);
+  var datasets=[];
+  cts.forEach(c=>{
+    var col=CT_COLORS[c]||CC.t3;
+    datasets.push({label:c+' (JD)',data:allD.map(d=>{var r=jdData.find(x=>x.Fecha===d&&x.Contratista===c);return r?r.Rend_JD_pond:null;}),
+      borderColor:col,backgroundColor:'transparent',borderWidth:2.5,tension:.3,pointRadius:3,spanGaps:true,borderDash:[],fill:false});
+    datasets.push({label:c+' (campo)',data:allD.map(d=>{var r=campoData.find(x=>x.Fecha===d&&x.Contratista===c);return r?r.Rend_Campo_pond:null;}),
+      borderColor:col,backgroundColor:'transparent',borderWidth:2,tension:.3,pointRadius:3,spanGaps:true,borderDash:[6,3],fill:false,pointStyle:'triangle'});
+  });
+  if(hcharts.rendDiaria)hcharts.rendDiaria.destroy();
+  hcharts.rendDiaria=new Chart(el,{type:'line',
+    data:{labels:allD.map(d=>d.slice(5)),datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'top',labels:{color:CC.t2,font:{size:10},boxWidth:12,padding:6,usePointStyle:true}},
+        tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toFixed(2)+' tn/ha'}}},
+      scales:{x:{ticks:{color:CC.t3,font:{size:10},maxRotation:45,maxTicksLimit:20},grid:{display:false}},
+        y:{ticks:{color:CC.t3,font:{size:11}},grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Rinde (tn/ha)',color:CC.t3,font:{size:11}}}}
+    }});
+}
+
+
+// ===== RESUMEN DIA - combined hum + rend table =====
+const RESUMEN_DIA = ALLDATA.resumen_dia||[];
+
+function updateResumenDia(){
+  var el=document.getElementById('hResumenBody');if(!el)return;
+  var fechas=[...new Set(RESUMEN_DIA.map(r=>r.Fecha))].sort().reverse();
+  var fechaSel=cvg('hFiltFechaResumen')||fechas[0];
+  var ctSel=cvg('hFiltCtResumen');
+  var stSel=cvg('hFiltStatusResumen');
+  var recs=RESUMEN_DIA.filter(r=>r.Fecha===fechaSel&&(!ctSel||r.Contratista===ctSel)&&(!stSel||r.Status===stSel));
+  // Sort: CORREGIR first, then CERCA, then BIEN; within each by abs dif_rend desc
+  var order={CORREGIR:0,CERCA:1,BIEN:2};
+  recs.sort((a,b)=>(order[a.Status]||0)-(order[b.Status]||0)||Math.abs(b.Dif_Rend_pct||0)-Math.abs(a.Dif_Rend_pct||0));
+
+  el.innerHTML=recs.map(r=>{
+    var dh=r.Dif_Hum,dr=r.Dif_Rend_pct;
+    var ahc=Math.abs(dh||0)>1.5?CC.rd:Math.abs(dh||0)>0.8?CC.am:CC.gn;
+    var arc=Math.abs(dr||0)>10?CC.rd:Math.abs(dr||0)>5?CC.am:CC.gn;
+    var stColor={CORREGIR:CC.rd,CERCA:CC.am,BIEN:CC.gn}[r.Status]||CC.t3;
+    var stIcon={CORREGIR:'❌ Corregir',CERCA:'⚠️ Cerca',BIEN:'✅ Bien'}[r.Status]||'—';
+    return '<tr>'+
+      '<td><strong>'+r.Nombre+'</strong></td>'+
+      '<td><span class="bg" style="background:'+CT_COLORS[r.Contratista]+'22;color:'+CT_COLORS[r.Contratista]+'">'+r.Contratista+'</span></td>'+
+      '<td class="tm"><strong>'+r.Lote+'</strong></td>'+
+      '<td class="tm">'+r.Ha.toFixed(1)+'</td>'+
+      '<td class="tm">'+r.Hum_JD.toFixed(2)+'%</td>'+
+      '<td class="tm">'+(r.Hum_Bal!=null?r.Hum_Bal.toFixed(2)+'%':'—')+'</td>'+
+      '<td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+ahc+';">'+(dh!=null?(dh>=0?'+':'')+dh.toFixed(2)+'%':'—')+'</td>'+
+      '<td class="tm">'+r.Rend_JD.toFixed(2)+' tn/ha</td>'+
+      '<td class="tm">'+r.Rend_Real.toFixed(2)+' tn/ha</td>'+
+      '<td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+arc+';">'+(dr!=null?(dr>=0?'+':'')+dr.toFixed(1)+'%':'—')+'</td>'+
+      '<td style="font-size:12px;font-weight:600;color:'+stColor+';">'+stIcon+'</td>'+
+      '</tr>';
+  }).join('');
+}
+
+
+// ===== PERDIDAS =====
+var pcharts={};
+
+function updatePerdidas(){
+  var ctF=cvg('pFiltCt'), stF=cvg('pFiltStatus');
+  var data=PERDIDAS.by_lote||[];
+  var filt=data.filter(function(d){
+    var ctMatch=!ctF||(d.Contratistas&&d.Contratistas.indexOf(ctF)>-1);
+    var stMatch=!stF||d.status===stF;
+    return ctMatch&&stMatch;
+  });
+
+  // KPIs (full data always)
+  var avg=data.length?data.reduce(function(a,d){return a+d.avg;},0)/data.length:0;
+  var alto=data.filter(function(d){return d.status==='ALTO';}).length;
+  var medio=data.filter(function(d){return d.status==='MEDIO';}).length;
+  var ctrlTotal=(PERDIDAS.controles||[]).reduce(function(a,r){return a+r.N_Controles;},0);
+  stN('pkAvg',avg.toFixed(2)+'%');
+  stN('pkAvgSub',data.length+' lotes monitoreados');
+  stN('pkAlto',alto); stN('pkMedio',medio);
+  stN('pkControles',ctrlTotal);
+  stN('pkControleSub',(PERDIDAS.controles||[]).length+' monitoreadores');
+
+  function perdAlpha(v){return v>1.5?'rgba(192,57,43,.8)':v>1.0?'rgba(138,90,16,.8)':'rgba(26,122,90,.8)';}
+  function perdClr(v){return v>1.5?CC.rd:v>1.0?CC.am:CC.gn;}
+
+  // Chart 1: por lote
+  var sorted=[...filt].sort(function(a,b){return b.avg-a.avg;});
+  if(pcharts.lote)pcharts.lote.destroy();
+  var el=document.getElementById('pcLote');if(!el)return;
+  pcharts.lote=new Chart(el,{type:'bar',
+    data:{labels:sorted.map(function(d){return d.Lote+(d.Contratistas?' ('+d.Contratistas+')':'');}),
+      datasets:[{data:sorted.map(function(d){return d.avg;}),
+        backgroundColor:sorted.map(function(d){return perdAlpha(d.avg);}),
+        borderColor:sorted.map(function(d){return perdClr(d.avg);}),
+        borderWidth:1.5,borderRadius:4,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{
+          label:function(c){return c.parsed.x.toFixed(2)+'%';},
+          afterLabel:function(c){var d=sorted[c.dataIndex];return 'Min: '+d.mn+'% | Max: '+d.mx+'% ('+d.n+' controles)';}
+        }}},
+      scales:{
+        x:{min:0,ticks:{color:CC.t3,font:{size:11},callback:function(v){return v+'%';}},
+          grid:{color:'rgba(0,0,0,.05)'},title:{display:true,text:'Pérdida (%)',color:CC.t3,font:{size:11}}},
+        y:{ticks:{color:CC.t2,font:{size:10,family:'DM Mono'}},grid:{display:false}}
+      }}});
+
+  // Chart 2: por contratista
+  var ctMap={};
+  filt.forEach(function(d){
+    var cts=(d.Contratistas||'Sin datos').split(', ');
+    cts.forEach(function(ct){
+      ct=ct.trim();if(!ct||ct==='nan')return;
+      if(!ctMap[ct])ctMap[ct]={sum:0,n:0,lotes:[]};
+      ctMap[ct].sum+=d.avg*d.n; ctMap[ct].n+=d.n; ctMap[ct].lotes.push(d.Lote);
+    });
+  });
+  var ctEntries=Object.entries(ctMap)
+    .map(function(e){return{ct:e[0],avg:e[1].n>0?e[1].sum/e[1].n:0,n:e[1].n,lotes:e[1].lotes};})
+    .sort(function(a,b){return b.avg-a.avg;});
+  if(pcharts.ct)pcharts.ct.destroy();
+  var el2=document.getElementById('pcContratista');if(!el2)return;
+  pcharts.ct=new Chart(el2,{type:'bar',
+    data:{labels:ctEntries.map(function(e){return e.ct;}),
+      datasets:[{data:ctEntries.map(function(e){return +e.avg.toFixed(3);}),
+        backgroundColor:ctEntries.map(function(e){return CT_COLORS[e.ct]||CC.t3;}),
+        borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{
+          label:function(c){return c.parsed.y.toFixed(2)+'%';},
+          afterLabel:function(c){var e=ctEntries[c.dataIndex];return e.n+' mediciones · '+e.lotes.join(', ');}
+        }}},
+      scales:{
+        x:{ticks:{color:CC.t3,font:{size:13}},grid:{display:false}},
+        y:{min:0,ticks:{color:CC.t3,font:{size:11},callback:function(v){return v+'%';}},
+          grid:{color:'rgba(0,0,0,.05)'},
+          title:{display:true,text:'Pérdida promedio (%)',color:CC.t3,font:{size:11}}}
+      }}});
+
+  // Tabla controles por monitoreador
+  var tb=document.getElementById('pTablaControles');if(!tb)return;
+  var maxCtrl=((PERDIDAS.controles||[])[0]||{N_Controles:1}).N_Controles;
+  tb.innerHTML=(PERDIDAS.controles||[]).map(function(r){
+    var avg=r.Perdida_avg||0;
+    var lotes=(r.Lotes||[]).join(', ');
+    var barW=Math.round(r.N_Controles/maxCtrl*100);
+    var barHtml='<div style="display:flex;align-items:center;gap:6px;">'
+      +'<div style="height:7px;width:'+barW+'%;min-width:4px;background:var(--bl);border-radius:4px;"></div>'
+      +'<span class="tm">'+r.N_Controles+'</span></div>';
+    return '<tr>'
+      +'<td><strong>'+r.Responsible+'</strong></td>'
+      +'<td class="tm">'+r.N_Controles+'</td>'
+      +'<td class="tm" style="font-size:11px">'+lotes+'</td>'
+      +'<td style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'
+        +(avg>1.5?CC.rd:avg>1.0?CC.am:CC.gn)+';">'+avg.toFixed(2)+'%</td>'
+      +'<td>'+barHtml+'</td></tr>';
+  }).join('');
+}
+
+// ===== MAPA INTERACTIVO DE LOTES =====
+const MAP_GEOJSON=window.__GEOJSON||{type:"FeatureCollection",features:[]};
+
+var _mapInited=false;
+function initMapSetup(){
+  if(_mapInited)return; _mapInited=true;
+  var features=MAP_GEOJSON.features;
+  var minLon=Infinity,maxLon=-Infinity,minLat=Infinity,maxLat=-Infinity;
+  function walk(c){
+    if(typeof c[0]==='number'){
+      if(c[0]<minLon)minLon=c[0];if(c[0]>maxLon)maxLon=c[0];
+      if(c[1]<minLat)minLat=c[1];if(c[1]>maxLat)maxLat=c[1];
+    }else{c.forEach(walk);}
+  }
+  features.forEach(function(f){walk(f.geometry.coordinates);});
+  var BOUNDS={minLon:minLon,maxLon:maxLon,minLat:minLat,maxLat:maxLat};
+  var PAD=18;
+  function project(lon,lat,W,H){
+    var sx=(W-PAD*2)/(BOUNDS.maxLon-BOUNDS.minLon);
+    var sy=(H-PAD*2)/(BOUNDS.maxLat-BOUNDS.minLat);
+    var sc=Math.min(sx,sy);
+    var ox=(W-(BOUNDS.maxLon-BOUNDS.minLon)*sc)/2;
+    var oy=(H-(BOUNDS.maxLat-BOUNDS.minLat)*sc)/2;
+    return[ox+(lon-BOUNDS.minLon)*sc, oy+(BOUNDS.maxLat-lat)*sc];
+  }
+  var canvas=document.getElementById('mapCanvas');
+  var tooltip=document.getElementById('mapTooltip');
+  if(!canvas)return;
+
+  function setCanvasSize(){
+    var container=canvas.parentElement;
+    var W=container?container.getBoundingClientRect().width:0;
+    if(!W||W<100)W=canvas.offsetWidth||900;
+    W=Math.round(W);
+    var aspect=(BOUNDS.maxLat-BOUNDS.minLat)/(BOUNDS.maxLon-BOUNDS.minLon);
+    var H=Math.round(W*aspect*1.08);
+    H=Math.max(420,Math.min(H,680));
+    canvas.width=W; canvas.height=H;
+    canvas.style.height=H+'px';
+    return{W:W,H:H};
+  }
+
+  window._mapPaths=[];
+
+  window.renderMap=function(){
+    var showNoSembrado=document.getElementById('mShowNoSembrado')?document.getElementById('mShowNoSembrado').checked:true;
+    var showSembrado=document.getElementById('mShowSembrado').checked;
+    var showAbierto=document.getElementById('mShowAbierto').checked;
+    var showTerminado=document.getElementById('mShowTerminado').checked;
+    var sz=setCanvasSize(); var W=sz.W,H=sz.H;
+    var ctx=canvas.getContext('2d');
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#d8d4cc'; ctx.fillRect(0,0,W,H);
+    window._mapPaths=[];
+    // Build dynamic status from ACTIVE_COS
+    var activeCosData=window.ACTIVE_COS||CLOTES;
+    var dynStatus={};
+    activeCosData.forEach(function(l){
+      var lote=(l.Lote||'').toUpperCase();
+      var ha_s=l.Ha_Sembradas||0; var ha_c=l.Ha_Cosechadas||0;
+      var st=ha_c===0?'sembrado':(ha_c>=ha_s*0.99?'terminado':'abierto');
+      dynStatus[lote]=st;
+    });
+    // Update feature status dynamically — only lotes in active crop get color
+    features.forEach(function(f){
+      var lote=(f.properties.lote||'').toUpperCase();
+      if(dynStatus[lote]){
+        f.properties.status=dynStatus[lote];
+      } else {
+        // Not in active crop → show as planimetría (no_sembrado)
+        f.properties.status='no_sembrado';
+      }
+    });
+    // Update legend counts
+    var cnt={sembrado:0,abierto:0,terminado:0};
+    features.forEach(function(f){if(cnt[f.properties.status]!==undefined)cnt[f.properties.status]++;});
+    var leg=document.getElementById('mapLegend');
+    if(leg) leg.innerHTML=
+      '<label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">'
+      +'<input type="checkbox" id="mShowNoSembrado" checked onchange="renderMap()"> '
+      +'<span style="display:inline-block;width:12px;height:12px;background:#ccc;border:1.5px solid #999;border-radius:2px;"></span> Planimetría (176)</label>'
+      +'<label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">'
+      +'<input type="checkbox" id="mShowSembrado" checked onchange="renderMap()"> '
+      +'<span style="display:inline-block;width:12px;height:12px;background:#E8E8E4;border:1.5px solid #aaa;border-radius:2px;"></span> Sembrado ('+cnt.sembrado+')</label>'
+      +'<label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">'
+      +'<input type="checkbox" id="mShowAbierto" checked onchange="renderMap()"> '
+      +'<span style="display:inline-block;width:12px;height:12px;background:#F4C842;border:1.5px solid #c49a00;border-radius:2px;"></span> En cosecha ('+cnt.abierto+')</label>'
+      +'<label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--t2);">'
+      +'<input type="checkbox" id="mShowTerminado" checked onchange="renderMap()"> '
+      +'<span style="display:inline-block;width:12px;height:12px;background:#1A7A5A;border:1.5px solid #0f5a42;border-radius:2px;"></span> Terminado ('+cnt.terminado+')</label>';
+    var drawOrder=['no_sembrado','sembrado','abierto','terminado'];
+    var COL={
+      no_sembrado:{fill:'rgba(0,0,0,0)',stroke:'#888',lw:0.5},
+      sembrado:   {fill:'#ECEAE4',stroke:'#9A9790',lw:0.8},
+      abierto:    {fill:'#F5C842',stroke:'#C49A00',lw:1},
+      terminado:  {fill:'#1A7A5A',stroke:'#0F5540',lw:1},
+    };
+    var showMap={no_sembrado:showNoSembrado,sembrado:showSembrado,abierto:showAbierto,terminado:showTerminado};
+
+    function ringPath(ring){
+      ctx.beginPath();
+      ring.forEach(function(c,i){
+        var p=project(c[0],c[1],W,H);
+        if(i===0)ctx.moveTo(p[0],p[1]);else ctx.lineTo(p[0],p[1]);
+      });
+      ctx.closePath();
+    }
+
+    drawOrder.forEach(function(status){
+      if(!showMap[status])return;
+      var col=COL[status];
+      features.forEach(function(f){
+        if(f.properties.status!==status)return;
+        var geom=f.geometry;
+        var p2=status!=='no_sembrado'?new Path2D():null;
+        function drawPoly(rings){
+          rings.forEach(function(ring){
+            ringPath(ring);
+            ctx.fillStyle=col.fill; ctx.fill();
+            ctx.strokeStyle=col.stroke; ctx.lineWidth=col.lw; ctx.stroke();
+          });
+          if(p2){rings.forEach(function(ring){
+            ring.forEach(function(c,i){var pt=project(c[0],c[1],W,H);if(i===0)p2.moveTo(pt[0],pt[1]);else p2.lineTo(pt[0],pt[1]);});
+            p2.closePath();
+          });}
+        }
+        if(geom.type==='Polygon') drawPoly(geom.coordinates);
+        else if(geom.type==='MultiPolygon') geom.coordinates.forEach(function(poly){drawPoly(poly);});
+        if(p2) window._mapPaths.push({path:p2,props:f.properties});
+      });
+    });
+  };
+
+  // Hover tooltip
+  canvas.addEventListener('mousemove',function(e){
+    var rect=canvas.getBoundingClientRect();
+    var scaleX=canvas.width/rect.width;
+    var scaleY=canvas.height/rect.height;
+    var mx=(e.clientX-rect.left)*scaleX;
+    var my=(e.clientY-rect.top)*scaleY;
+    var ctx2=canvas.getContext('2d');
+    var hit=null;
+    for(var i=window._mapPaths.length-1;i>=0;i--){
+      if(ctx2.isPointInPath(window._mapPaths[i].path,mx,my)){hit=window._mapPaths[i].props;break;}
+    }
+    if(hit){
+      var SL={sembrado:'Sembrado - sin cosechar',abierto:'En cosecha',terminado:'Completado'};
+      var html2='<strong>'+hit.label+'</strong><br>'
+        +(SL[hit.status]||hit.status)+'<br>'
+        +'Ha sembradas: '+hit.ha_sembradas+'<br>'
+        +(hit.ha_cosechadas>0?'Ha cosechadas: '+hit.ha_cosechadas+' ('+hit.pct_cosechado+'%)<br>':'')
+        +(hit.rend_real>0?'Rinde: '+hit.rend_real.toFixed(2)+' tn/ha<br>':'')
+        +(hit.contratistas?'Contratista: '+hit.contratistas:'');
+      tooltip.innerHTML=html2;
+      tooltip.style.display='block';
+      var tx=e.clientX-rect.left+14;
+      var ty=e.clientY-rect.top-10;
+      if(tx+200>rect.width)tx=e.clientX-rect.left-214;
+      tooltip.style.left=tx+'px'; tooltip.style.top=ty+'px';
+      canvas.style.cursor='pointer';
+    }else{
+      tooltip.style.display='none';
+      canvas.style.cursor='crosshair';
+    }
+  });
+  canvas.addEventListener('mouseleave',function(){tooltip.style.display='none';});
+  window.addEventListener('resize',function(){if(window.renderMap)window.renderMap();});
+}
+
+
+
+// ===== MULTI-CROP SYSTEM =====
+const MAIZ_SIE=ALLDATA.maiz&&ALLDATA.maiz.siembra?ALLDATA.maiz.siembra:[];
+const MAIZ_COS=ALLDATA.maiz&&ALLDATA.maiz.cosecha?ALLDATA.maiz.cosecha:[];
+const MAIZ_DIA=ALLDATA.maiz&&ALLDATA.maiz.diario?ALLDATA.maiz.diario:[];
+const ALD_SIE=ALLDATA.algodon&&ALLDATA.algodon.siembra?ALLDATA.algodon.siembra:[];
+const ALD_COS=ALLDATA.algodon&&ALLDATA.algodon.cosecha?ALLDATA.algodon.cosecha:[];
+const ALD_DIA=ALLDATA.algodon&&ALLDATA.algodon.diario?ALLDATA.algodon.diario:[];
+
+var CROP_REGISTRY = {
+        soja: {
+    id:'soja', label:'Soja', emoji:'🌱', color:'#1A7A5A',
+    ha_sembradas:15174,
+    lotes:132,
+    ha_cosechadas:7152,
+    cosechados:80,
+    sie:RAW, cos:CLOTES, dia:CDIARIO, active:true
+  },
+  maiz: {
+    id:'maiz', label:'Maíz', emoji:'🌽', color:'#F4C842',
+    ha_sembradas:6740,
+    lotes:72,
+    ha_cosechadas:42,
+    cosechados:1,
+    sie:MAIZ_SIE, cos:MAIZ_COS, dia:MAIZ_DIA, active:true
+  },
+  algodon: {
+    id:'algodon', label:'Algodón', emoji:'🪴', color:'#8A5A10',
+    ha_sembradas:2449,
+    lotes:39,
+    ha_cosechadas:41,
+    cosechados:1,
+    sie:ALD_SIE, cos:ALD_COS, dia:ALD_DIA, active:true
+  },
+};
+
+function buildCropCards(){
+  var container=document.getElementById('cropCards');
+  if(!container)return;
+  container.innerHTML='';
+  Object.values(CROP_REGISTRY).forEach(function(c){
+    var pct=c.ha_sembradas>0?Math.round(c.ha_cosechadas/c.ha_sembradas*100):0;
+    // Rinde real vs presupuesto
+    var cos=(c.cos||[]).filter(function(l){return (l.Ha_Cosechadas||0)>0;});
+    var all=c.cos||[];
+    var ha_c=cos.reduce(function(a,l){return a+(l.Ha_Cosechadas||0);},0);
+    var prod=cos.reduce(function(a,l){return a+(l.Prod_Real||0);},0);
+    var presup=all.reduce(function(a,l){return a+(l.Prod_Presup||0);},0);
+    var ha_s=all.reduce(function(a,l){return a+(l.Ha_Sembradas||0);},0);
+    var rend_real=ha_c>0?prod/ha_c:0;
+    var rend_presup=ha_s>0?presup/ha_s:0;
+    var pct_rend=rend_presup>0?Math.round(rend_real/rend_presup*100):0;
+    var pct_prod=presup>0?Math.round(prod/presup*100):0;
+    var hasData=ha_c>0;
+    var rendColor=!hasData?'var(--t3)':pct_rend>=100?'#1A7A5A':pct_rend>=85?'#8A5A10':'#C0392B';
+
+    var card=document.createElement('label');
+    card.style.cssText='display:flex;align-items:center;gap:16px;background:var(--bg2);border:2px solid '+(c.active?c.color:'var(--brd)')+';border-radius:12px;padding:16px 20px;cursor:pointer;transition:border-color .2s;';
+
+    var chk=document.createElement('input');
+    chk.type='checkbox'; chk.checked=c.active;
+    chk.style.cssText='width:18px;height:18px;accent-color:'+c.color+';cursor:pointer;flex-shrink:0;';
+    chk.addEventListener('change',function(){toggleCrop(c.id,this.checked,card);});
+
+    var emo=document.createElement('span');
+    emo.style.fontSize='28px'; emo.textContent=c.emoji;
+
+    var info=document.createElement('div');
+    info.style.flex='1';
+    var title=document.createElement('div');
+    title.style.cssText='font-size:16px;font-weight:700;color:var(--t1);';
+    title.textContent=c.label;
+    var sub=document.createElement('div');
+    sub.style.cssText='font-size:12px;color:var(--t3);margin-top:3px;';
+    sub.textContent=c.lotes+' lotes · '+c.ha_sembradas.toLocaleString('es-AR')+' ha sembradas';
+    info.appendChild(title); info.appendChild(sub);
+
+    // Right side: avance + rinde
+    var stats=document.createElement('div');
+    stats.style.cssText='text-align:right;display:flex;flex-direction:column;gap:6px;min-width:180px;';
+
+    // Row 1: avance cosecha
+    var pctEl=document.createElement('div');
+    pctEl.style.cssText='font-size:13px;font-weight:600;color:'+c.color+';';
+    pctEl.textContent=pct+'% cosechado · '+c.ha_cosechadas.toLocaleString('es-AR')+' ha';
+    stats.appendChild(pctEl);
+
+    // Row 2: rinde real vs presupuesto (only if has cosecha data)
+    var rendRow=document.createElement('div');
+    rendRow.style.cssText='font-size:13px;font-weight:600;color:'+rendColor+';';
+    if(hasData){
+      var rendTxt=rend_real.toFixed(1)+' tn/ha';
+      var presupTxt='(presup: '+rend_presup.toFixed(1)+')';
+      var pctTxt=pct_rend+'%';
+      rendRow.textContent='Rinde: '+rendTxt+' · '+pctTxt+' del presup.';
+    } else {
+      rendRow.style.cssText='font-size:12px;color:var(--t3);';
+      rendRow.textContent='Sin cosecha aún · Presup: '+rend_presup.toFixed(1)+' tn/ha';
+    }
+    stats.appendChild(rendRow);
+
+    card.appendChild(chk);
+    card.appendChild(emo);
+    card.appendChild(info);
+    card.appendChild(stats);
+    container.appendChild(card);
+  });
+}
+
+function toggleCrop(id, active, card){
+  if(CROP_REGISTRY[id]) CROP_REGISTRY[id].active=active;
+  if(card) card.style.borderColor=active?CROP_REGISTRY[id].color:'var(--brd)';
+}
+
+function selectAllCrops(){
+  Object.keys(CROP_REGISTRY).forEach(function(id){
+    CROP_REGISTRY[id].active=true;
+    var chk=document.getElementById('chk_'+id); if(chk)chk.checked=true;
+  });
+  buildCropCards();
+}
+
+function getActiveCrops(){
+  return Object.values(CROP_REGISTRY).filter(function(c){return c.active;});
+}
+
+function applyActiveCrops(){
+  // Set active data based on selected crops
+  var active=getActiveCrops();
+  if(active.length===0){alert('Seleccioná al menos un cultivo');return;}
+
+  // Merge siembra and cosecha data from all active crops
+  window.ACTIVE_SIE=active.flatMap(function(c){
+    return (c.sie||[]).map(function(l){
+      return Object.assign({},l,{_cultivo:c.id,_emoji:c.emoji});
+    });
+  });
+  window.ACTIVE_COS=active.flatMap(function(c){
+    return (c.cos||[]).map(function(l){
+      return Object.assign({},l,{_cultivo:c.id,_emoji:c.emoji});
+    });
+  });
+
+  // Update header badge with active crops total
+  var totalHa=active.reduce(function(a,c){return a+c.ha_sembradas;},0);
+  var totalLotes=active.reduce(function(a,c){return a+c.lotes;},0);
+  var badge=document.getElementById('badgeHa');
+  if(badge) badge.textContent=totalHa.toLocaleString('es-AR')+' ha · '+totalLotes+' lotes';
+
+  // Go to siembra tab
+  var btns=document.querySelectorAll('.tab-btn');
+  var sBtn=null;
+  btns.forEach(function(b){if(b.textContent.includes('Siembra'))sBtn=b;});
+  if(sBtn) switchTab('siembra',sBtn);
+}
+
+// Get merged data for all active crops
+function getActiveSiembra(){
+  return getActiveCrops().flatMap(function(c){
+    return (c.sie||[]).map(function(l){return Object.assign({},l,{_cultivo:c.id,_color:c.color,_emoji:c.emoji});});
+  });
+}
+function getActiveCosecha(){
+  return getActiveCrops().flatMap(function(c){
+    return (c.cos||[]).map(function(l){return Object.assign({},l,{_cultivo:c.id,_color:c.color,_emoji:c.emoji});});
+  });
+}
+function getActiveDiario(){
+  return getActiveCrops().flatMap(function(c){ return c.dia||[]; });
+}
+// DOMContentLoaded handled by loader script in <head>
+</script>
+</body>
+</html>
